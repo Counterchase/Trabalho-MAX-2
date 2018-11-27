@@ -414,9 +414,9 @@ public class CadastroAdm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         chkAdm = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         clinica.setBackground(new java.awt.Color(255, 255, 255));
@@ -484,7 +484,7 @@ public class CadastroAdm extends javax.swing.JFrame {
             .addGroup(clinicaLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(clinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1181, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
                     .addGroup(clinicaLayout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -493,7 +493,7 @@ public class CadastroAdm extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addGroup(clinicaLayout.createSequentialGroup()
                         .addComponent(btnExcluirClinica)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1057, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 454, Short.MAX_VALUE)
                         .addComponent(btnEditarClinica))
                     .addGroup(clinicaLayout.createSequentialGroup()
                         .addComponent(jLabel5)
@@ -620,7 +620,7 @@ public class CadastroAdm extends javax.swing.JFrame {
             .addGroup(medicoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(medicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1181, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, medicoLayout.createSequentialGroup()
                         .addComponent(btnExcluirMedico)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -776,7 +776,7 @@ public class CadastroAdm extends javax.swing.JFrame {
                 .addGroup(adminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(adminLayout.createSequentialGroup()
                         .addGroup(adminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1181, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
                             .addGroup(adminLayout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -836,9 +836,6 @@ public class CadastroAdm extends javax.swing.JFrame {
         jTabbedPane1.addTab("<html><b>Admin\n", new javax.swing.ImageIcon(getClass().getResource("/banco/IMG/iconfinder_ajax-admin_3018587.png")), admin); // NOI18N
 
         getContentPane().add(jTabbedPane1);
-
-        jButton1.setText("jButton1");
-        getContentPane().add(jButton1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -963,6 +960,9 @@ public class CadastroAdm extends javax.swing.JFrame {
             }
 
             int k = tbMedico.getSelectedRow();
+            if( k == -1){
+            JOptionPane.showMessageDialog(null, "Selecione um Admin para deletar");
+            }else{
             // System.out.println(k);
             int i = ((MedicoTableModel) tbMedico.getModel()).getListamedicos().get(k).getIdmedico();
 
@@ -984,7 +984,7 @@ public class CadastroAdm extends javax.swing.JFrame {
             MedicoTableModel modelo = new MedicoTableModel();
             modelo.setListamedicos(medicos);
             tbMedico.setModel(modelo);
-
+            }
         } catch (SQLException ex) {
             Logger.getLogger(CadastroMedico.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1062,17 +1062,31 @@ public class CadastroAdm extends javax.swing.JFrame {
             }
 
             int k = tbAdmin.getSelectedRow();
+            if( k == -1){
+            JOptionPane.showMessageDialog(null, "Selecione um Admin para deletar");
+            }else{
+            
+            
             // System.out.println(k);
             int i = ((AdminTableModel) tbAdmin.getModel()).getListaAdmins().get(k).getIdadmin();
+            
 
             Statement stmt = conn.createStatement();
+            if(i == 1){
+                JOptionPane.showMessageDialog(null, "Nao é Possivel apagar o Admin Nativo!");
+            }else{
+                
             String sql = "Delete from admin where idadmin = " + i + " ";
             stmt.executeUpdate(sql);
+            JOptionPane.showMessageDialog(null, "Admin Apagado!");
+            
+            }
+            
 
             stmt.close();
             conn.close();
 
-            JOptionPane.showMessageDialog(null, "Admin Apagado!");
+            
 
             String Mostrar = " ";
             txtNomeAdmin.setText(Mostrar);
@@ -1091,7 +1105,7 @@ public class CadastroAdm extends javax.swing.JFrame {
                 combAdminMedico.addItem(ladmin.get(i3));
 
             }
-
+            }
         } catch (SQLException ex) {
             Logger.getLogger(CadastroMedico.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1298,6 +1312,9 @@ public class CadastroAdm extends javax.swing.JFrame {
             }
 
             int k = tbClinica.getSelectedRow();
+            if( k == -1){
+            JOptionPane.showMessageDialog(null, "Selecione um Admin para deletar");
+            }else{
             // System.out.println(k);
             int i = ((ClinicaTableModel) tbClinica.getModel()).getListaclinicas().get(k).getIdclinica();
 
@@ -1328,7 +1345,7 @@ public class CadastroAdm extends javax.swing.JFrame {
                 combClinicaMedico.addItem(lclinica.get(i2));
 
             }
-
+            }
         } catch (SQLException ex) {
             Logger.getLogger(CadastroMedico.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1394,7 +1411,6 @@ public class CadastroAdm extends javax.swing.JFrame {
     private javax.swing.JPanel clinica;
     private javax.swing.JComboBox<Admin> combAdminMedico;
     private javax.swing.JComboBox<Clinica> combClinicaMedico;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton1Medico;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
