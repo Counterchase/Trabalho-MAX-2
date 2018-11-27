@@ -15,6 +15,15 @@ public class Admin {
     String Senha;
     String nome;
     String login;
+    Integer adm;
+
+    public Integer getAdm() {
+        return adm;
+    }
+
+    public void setAdm(Integer adm) {
+        this.adm = adm;
+    }
 
     public Integer getIdadmin() {
         return idadmin;

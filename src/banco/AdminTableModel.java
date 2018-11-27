@@ -1,6 +1,5 @@
 package banco;
 
-
 import java.util.ArrayList;
 
 import java.util.List;
@@ -29,6 +28,7 @@ public class AdminTableModel extends AbstractTableModel {
         cabecalho.add("NOME");
         cabecalho.add("LOGIN");
         cabecalho.add("SENHA");
+        cabecalho.add("ADM");
     }
 
     @Override
@@ -59,6 +59,8 @@ public class AdminTableModel extends AbstractTableModel {
                 return listaAdmins.get(rowIndex).getLogin();
             case 3:
                 return listaAdmins.get(rowIndex).getSenha();
+            case 4:
+                return listaAdmins.get(rowIndex).getAdm();
             default:
                 return null;
         }

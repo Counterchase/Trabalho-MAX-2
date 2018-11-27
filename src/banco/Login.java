@@ -6,6 +6,7 @@
 package banco;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,55 +22,50 @@ import java.util.logging.Logger;
  */
 public class Login extends javax.swing.JFrame {
 private Connection conn;
+PreparedStatement ps = null;
+    ResultSet rs = null;
 
-    private List<Admin> Admins;
+
     
-   public List<Admin> listarTbAdmin() throws SQLException {
-        Admins = new ArrayList<>();
-
-        conn = Banco.conecta();
-        if (conn == null || conn.isClosed()) {
-            System.out.println("erro ao conectar ao banco de dados");
-            System.exit(-1);
+   public void logar() {
+        String sql = "SELECT idadmin, login, senha, adm FROM admin WHERE login = ? AND senha = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, txtLogin.getText());
+            ps.setString(2, txtSenha.getText());
+            
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                Integer idadmin = rs.getInt("idadmin");
+                Integer adm = rs.getInt("adm");
+                
+                
+                if(adm>0){
+                    CadastroAdm init = new CadastroAdm();
+                init.setVisible(true); //torna visivel frame de cadastro    
+                setVisible(false);//tira a tela de login
+                dispose(); //fecha o form de login (quem chamou)
+                }else{
+                Cadastro init2 = new Cadastro();
+                init2.setVisible(true); //torna visivel frame de cadastro    
+                setVisible(false);//tira a tela de login
+                dispose(); //fecha o form de login (quem chamou)
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuário e/ou senha inválidos");
+            }
+        } catch (SQLException error) {
+            JOptionPane.showMessageDialog(null, "Erro");
         }
-
-        String sql = "SELECT idadmin, nome, login, senha FROM Admin";
-        System.out.println("sql: " + sql);
-
-        //atravez desse objeto usamos comandos sql
-        Statement stmt = conn.createStatement();
-
-        //select
-        ResultSet res = stmt.executeQuery(sql);
-
-        while (res.next()) {
-            System.out.print("id: " + res.getInt("idadmin"));
-            System.out.print("nome: " + res.getString("nome"));
-            System.out.print("login: " + res.getString("login"));
-            System.out.print("senha: " + res.getString("senha"));
-
-            Admin a = new Admin();;
-            a.setIdadmin(res.getInt("idadmin"));
-            a.setNome(res.getString("nome"));
-            a.setLogin(res.getString("login"));
-            a.setSenha(res.getString("senha"));
-
-            Admins.add(a);
-        }
-        stmt.close();
-        conn.close();
-        return Admins;
-
     }
-     
+   
     public Login() {
         initComponents();
-         this.setLocationRelativeTo(null); //centro da tela
-    try {
-        Admins = listarTbAdmin();
-    } catch (SQLException ex) {
-        Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        setLocationRelativeTo(null); //centro da tela
+        conn = Banco.conecta();
+        setResizable(false);
+     
+        
     }
 
     /**
@@ -83,10 +80,12 @@ private Connection conn;
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnLogar = new javax.swing.JButton();
-        txtSenha = new javax.swing.JTextField();
         txtLogin = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel1.setFont(new java.awt.Font("BankGothic Md BT", 1, 24)); // NOI18N
         jLabel1.setText("LOGIN:");
@@ -102,15 +101,20 @@ private Connection conn;
             }
         });
 
-        txtSenha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSenhaActionPerformed(evt);
-            }
-        });
-
+        txtLogin.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         txtLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtLoginActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
+        jLabel3.setText("PICCIANIMED");
+
+        txtSenha.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSenhaActionPerformed(evt);
             }
         });
 
@@ -120,48 +124,59 @@ private Connection conn;
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnLogar)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
-                    .addComponent(txtSenha))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnLogar)
+                                .addGap(17, 169, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(61, 61, 61)
+                                .addComponent(jLabel3)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(40, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel3)
+                .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1)
                     .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
+                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
-                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnLogar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSenhaActionPerformed
-
     private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogarActionPerformed
-        // TODO add your handling code here:
+        logar();
     }//GEN-LAST:event_btnLogarActionPerformed
 
     private void txtLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginActionPerformed
-        // TODO add your handling code here:
+       logar();
     }//GEN-LAST:event_txtLoginActionPerformed
+
+    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
+       logar();
+    }//GEN-LAST:event_txtSenhaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,7 +217,9 @@ private Connection conn;
     private javax.swing.JButton btnLogar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField txtLogin;
-    private javax.swing.JTextField txtSenha;
+    private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
+
 }
