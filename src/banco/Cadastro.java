@@ -381,6 +381,19 @@ public class Cadastro extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
+        clinica = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tbClinica = new javax.swing.JTable();
+        btnExcluirClinica = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        btnEditarClinica = new javax.swing.JButton();
+        txtNomeClinica = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtCnpjClinica = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtCidadeClinica = new javax.swing.JTextField();
+        btnCadastrarClinica = new javax.swing.JButton();
         medico = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         txtDataNascimentoMedico = new org.jdesktop.swingx.JXDatePicker();
@@ -400,19 +413,6 @@ public class Cadastro extends javax.swing.JFrame {
         txtNomeMedico = new javax.swing.JTextField();
         jButton1Medico = new javax.swing.JButton();
         txtCpfMedico = new javax.swing.JFormattedTextField();
-        clinica = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tbClinica = new javax.swing.JTable();
-        btnExcluirClinica = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        btnEditarClinica = new javax.swing.JButton();
-        txtNomeClinica = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        txtCnpjClinica = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        txtCidadeClinica = new javax.swing.JTextField();
-        btnCadastrarClinica = new javax.swing.JButton();
 
         txtNomeAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -531,6 +531,122 @@ public class Cadastro extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
+
+        clinica.setBackground(new java.awt.Color(255, 255, 255));
+        clinica.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setText("Cadastro de Clínicas");
+
+        tbClinica.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(tbClinica);
+
+        btnExcluirClinica.setText("Excluir");
+        btnExcluirClinica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirClinicaActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Nome:");
+
+        btnEditarClinica.setText("Editar");
+        btnEditarClinica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarClinicaActionPerformed(evt);
+            }
+        });
+
+        txtNomeClinica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomeClinicaActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("CNPJ:");
+
+        txtCnpjClinica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCnpjClinicaActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Cidade:");
+
+        btnCadastrarClinica.setText("Cadastrar");
+        btnCadastrarClinica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarClinicaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout clinicaLayout = new javax.swing.GroupLayout(clinica);
+        clinica.setLayout(clinicaLayout);
+        clinicaLayout.setHorizontalGroup(
+            clinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(clinicaLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(clinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+                    .addGroup(clinicaLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCidadeClinica))
+                    .addComponent(btnCadastrarClinica)
+                    .addComponent(jLabel4)
+                    .addGroup(clinicaLayout.createSequentialGroup()
+                        .addComponent(btnExcluirClinica)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 454, Short.MAX_VALUE)
+                        .addComponent(btnEditarClinica))
+                    .addGroup(clinicaLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNomeClinica))
+                    .addGroup(clinicaLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCnpjClinica)))
+                .addContainerGap())
+        );
+        clinicaLayout.setVerticalGroup(
+            clinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(clinicaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addGap(19, 19, 19)
+                .addGroup(clinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtNomeClinica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(clinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtCnpjClinica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addGroup(clinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtCidadeClinica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(clinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnExcluirClinica)
+                    .addComponent(btnEditarClinica))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCadastrarClinica)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("<html>\n<b>Clínica</b>\n</html>", new javax.swing.ImageIcon(getClass().getResource("/banco/IMG/iconfinder_hospital-o_1608931 (1).png")), clinica, "Cadastre Clinicas\n"); // NOI18N
 
         medico.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -699,122 +815,6 @@ public class Cadastro extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("<html><b>Médico</b>", new javax.swing.ImageIcon(getClass().getResource("/banco/IMG/iconfinder_49_3678412.png")), medico, "Cadastre um Médico\n"); // NOI18N
-
-        clinica.setBackground(new java.awt.Color(255, 255, 255));
-        clinica.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel4.setText("Cadastro de Clínicas");
-
-        tbClinica.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane3.setViewportView(tbClinica);
-
-        btnExcluirClinica.setText("Excluir");
-        btnExcluirClinica.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirClinicaActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setText("Nome:");
-
-        btnEditarClinica.setText("Editar");
-        btnEditarClinica.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarClinicaActionPerformed(evt);
-            }
-        });
-
-        txtNomeClinica.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomeClinicaActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setText("CNPJ:");
-
-        txtCnpjClinica.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCnpjClinicaActionPerformed(evt);
-            }
-        });
-
-        jLabel7.setText("Cidade:");
-
-        btnCadastrarClinica.setText("Cadastrar");
-        btnCadastrarClinica.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarClinicaActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout clinicaLayout = new javax.swing.GroupLayout(clinica);
-        clinica.setLayout(clinicaLayout);
-        clinicaLayout.setHorizontalGroup(
-            clinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(clinicaLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(clinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
-                    .addGroup(clinicaLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCidadeClinica))
-                    .addComponent(btnCadastrarClinica)
-                    .addComponent(jLabel4)
-                    .addGroup(clinicaLayout.createSequentialGroup()
-                        .addComponent(btnExcluirClinica)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 454, Short.MAX_VALUE)
-                        .addComponent(btnEditarClinica))
-                    .addGroup(clinicaLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNomeClinica))
-                    .addGroup(clinicaLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCnpjClinica)))
-                .addContainerGap())
-        );
-        clinicaLayout.setVerticalGroup(
-            clinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(clinicaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addGap(19, 19, 19)
-                .addGroup(clinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtNomeClinica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
-                .addGroup(clinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtCnpjClinica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
-                .addGroup(clinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(txtCidadeClinica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(clinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnExcluirClinica)
-                    .addComponent(btnEditarClinica))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCadastrarClinica)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jTabbedPane1.addTab("<html>\n<b>Clínica</b>\n</html>", new javax.swing.ImageIcon(getClass().getResource("/banco/IMG/iconfinder_hospital-o_1608931 (1).png")), clinica, "Cadastre Clinicas\n"); // NOI18N
 
         getContentPane().add(jTabbedPane1);
 
@@ -1001,6 +1001,9 @@ public class Cadastro extends javax.swing.JFrame {
             }
 
             int k = tbMedico.getSelectedRow();
+            if( k == -1){
+            JOptionPane.showMessageDialog(null, "Selecione um Admin para deletar");
+            }else{
             // System.out.println(k);
             int i = ((MedicoTableModel) tbMedico.getModel()).getListamedicos().get(k).getIdmedico();
 
@@ -1022,7 +1025,7 @@ public class Cadastro extends javax.swing.JFrame {
             MedicoTableModel modelo = new MedicoTableModel();
             modelo.setListamedicos(medicos);
             tbMedico.setModel(modelo);
-
+            }
         } catch (SQLException ex) {
             Logger.getLogger(CadastroMedico.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1141,7 +1144,7 @@ public class Cadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCpfMedicoActionPerformed
 
     private void btnExcluirClinicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirClinicaActionPerformed
-        conn = Banco.conecta();
+       conn = Banco.conecta();
 
         try {
             if (conn == null || conn.isClosed()) {
@@ -1151,6 +1154,9 @@ public class Cadastro extends javax.swing.JFrame {
             }
 
             int k = tbClinica.getSelectedRow();
+            if( k == -1){
+            JOptionPane.showMessageDialog(null, "Selecione um Admin para deletar");
+            }else{
             // System.out.println(k);
             int i = ((ClinicaTableModel) tbClinica.getModel()).getListaclinicas().get(k).getIdclinica();
 
@@ -1181,7 +1187,7 @@ public class Cadastro extends javax.swing.JFrame {
                 combClinicaMedico.addItem(lclinica.get(i2));
 
             }
-
+            }
         } catch (SQLException ex) {
             Logger.getLogger(CadastroMedico.class.getName()).log(Level.SEVERE, null, ex);
         }
