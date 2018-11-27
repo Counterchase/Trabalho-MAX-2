@@ -368,6 +368,9 @@ public class CadastroAdm extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
+        Menu = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        btnLogout = new javax.swing.JButton();
         clinica = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -403,7 +406,6 @@ public class CadastroAdm extends javax.swing.JFrame {
         admin = new javax.swing.JPanel();
         txtNomeAdmin = new javax.swing.JTextField();
         txtLoginAdmin = new javax.swing.JTextField();
-        txtSenhaAdmin = new javax.swing.JTextField();
         btnCadastrarAdmin = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbAdmin = new javax.swing.JTable();
@@ -414,10 +416,52 @@ public class CadastroAdm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         chkAdm = new javax.swing.JCheckBox();
+        txtSenhaAdmin = new javax.swing.JPasswordField();
+        txtSenhaAdmin2 = new javax.swing.JPasswordField();
+        jLabel16 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
+
+        Menu.setBackground(new java.awt.Color(255, 255, 255));
+        Menu.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/banco/IMG/NQZSGBCO_400x400.png"))); // NOI18N
+
+        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/banco/IMG/icons8-sair-24.png"))); // NOI18N
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
+        Menu.setLayout(MenuLayout);
+        MenuLayout.setHorizontalGroup(
+            MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MenuLayout.createSequentialGroup()
+                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(MenuLayout.createSequentialGroup()
+                        .addGap(126, 126, 126)
+                        .addComponent(jLabel17))
+                    .addGroup(MenuLayout.createSequentialGroup()
+                        .addGap(301, 301, 301)
+                        .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(135, Short.MAX_VALUE))
+        );
+        MenuLayout.setVerticalGroup(
+            MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MenuLayout.createSequentialGroup()
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnLogout)
+                .addContainerGap(67, Short.MAX_VALUE))
+        );
+
+        btnLogout.getAccessibleContext().setAccessibleDescription("\n");
+
+        jTabbedPane1.addTab("<html><b>Menu", new javax.swing.ImageIcon(getClass().getResource("/banco/IMG/icons8-mais-filled-24.png")), Menu); // NOI18N
 
         clinica.setBackground(new java.awt.Color(255, 255, 255));
         clinica.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -484,7 +528,7 @@ public class CadastroAdm extends javax.swing.JFrame {
             .addGroup(clinicaLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(clinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
                     .addGroup(clinicaLayout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -493,7 +537,7 @@ public class CadastroAdm extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addGroup(clinicaLayout.createSequentialGroup()
                         .addComponent(btnExcluirClinica)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 454, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 517, Short.MAX_VALUE)
                         .addComponent(btnEditarClinica))
                     .addGroup(clinicaLayout.createSequentialGroup()
                         .addComponent(jLabel5)
@@ -529,7 +573,7 @@ public class CadastroAdm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCadastrarClinica)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -606,7 +650,11 @@ public class CadastroAdm extends javax.swing.JFrame {
             }
         });
 
-        txtCpfMedico.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        try {
+            txtCpfMedico.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         txtCpfMedico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCpfMedicoActionPerformed(evt);
@@ -620,7 +668,7 @@ public class CadastroAdm extends javax.swing.JFrame {
             .addGroup(medicoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(medicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, medicoLayout.createSequentialGroup()
                         .addComponent(btnExcluirMedico)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -644,16 +692,12 @@ public class CadastroAdm extends javax.swing.JFrame {
                                         .addComponent(txtDataNascimentoMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, medicoLayout.createSequentialGroup()
+                        .addGroup(medicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel13))
+                        .addGap(2, 2, 2)
                         .addGroup(medicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(medicoLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                            .addGroup(medicoLayout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addGap(9, 9, 9)))
-                        .addGroup(medicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtCrmMedico, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
+                            .addComponent(txtCrmMedico)
                             .addComponent(txtNomeMedico)))
                     .addGroup(medicoLayout.createSequentialGroup()
                         .addComponent(jLabel11)
@@ -697,7 +741,7 @@ public class CadastroAdm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1Medico)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -767,6 +811,20 @@ public class CadastroAdm extends javax.swing.JFrame {
             }
         });
 
+        txtSenhaAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSenhaAdminActionPerformed(evt);
+            }
+        });
+
+        txtSenhaAdmin2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSenhaAdmin2ActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setText("Confirma senha:");
+
         javax.swing.GroupLayout adminLayout = new javax.swing.GroupLayout(admin);
         admin.setLayout(adminLayout);
         adminLayout.setHorizontalGroup(
@@ -776,26 +834,31 @@ public class CadastroAdm extends javax.swing.JFrame {
                 .addGroup(adminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(adminLayout.createSequentialGroup()
                         .addGroup(adminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
                             .addGroup(adminLayout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtNomeAdmin))
                             .addGroup(adminLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtSenhaAdmin))
-                            .addGroup(adminLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtLoginAdmin))
+                                .addComponent(btnExcluirAdmin)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnEditarAdmin))
                             .addGroup(adminLayout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(adminLayout.createSequentialGroup()
-                                .addComponent(btnExcluirAdmin)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnEditarAdmin)))
+                                .addGroup(adminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(adminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtLoginAdmin)
+                                    .addGroup(adminLayout.createSequentialGroup()
+                                        .addComponent(txtSenhaAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel16)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtSenhaAdmin2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addContainerGap())
                     .addGroup(adminLayout.createSequentialGroup()
                         .addComponent(btnCadastrarAdmin)
@@ -818,8 +881,10 @@ public class CadastroAdm extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(adminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
                     .addComponent(txtSenhaAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(txtSenhaAdmin2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(adminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExcluirAdmin)
@@ -829,7 +894,7 @@ public class CadastroAdm extends javax.swing.JFrame {
                     .addComponent(btnCadastrarAdmin)
                     .addComponent(chkAdm))
                 .addGap(47, 47, 47)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1120,7 +1185,7 @@ public class CadastroAdm extends javax.swing.JFrame {
 
     @SuppressWarnings("empty-statement")
     private void btnCadastrarAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarAdminActionPerformed
-
+        String Mostrar = null;
         conn = Banco.conecta();
         try {
             if (conn == null || conn.isClosed()) {
@@ -1131,6 +1196,16 @@ public class CadastroAdm extends javax.swing.JFrame {
             String nome = "'" + txtNomeAdmin.getText() + "'";
             String login = "'" + txtLoginAdmin.getText() + "'";
             String senha = "'" + txtSenhaAdmin.getText() + "'";
+            String senha2 = "'" + txtSenhaAdmin2.getText() + "'";
+            
+            if(senha.equals(senha2)){
+                
+                
+                
+                
+  
+            
+            
             Integer adm = null;
             if (chkAdm.isSelected()) {
                 adm = 1;
@@ -1162,10 +1237,11 @@ public class CadastroAdm extends javax.swing.JFrame {
             stmt.close();
             conn.close();
 
-            String Mostrar = " ";
+           
             txtNomeAdmin.setText(Mostrar);
             txtLoginAdmin.setText(Mostrar);
             txtSenhaAdmin.setText(Mostrar);
+            txtSenhaAdmin2.setText(Mostrar);
 
             Admins = listarTbAdmin();
 
@@ -1185,6 +1261,11 @@ public class CadastroAdm extends javax.swing.JFrame {
                 combAdminMedico.addItem(ladmin.get(i));
 
             }
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Senhas Não São Iguais!");
+                txtSenhaAdmin.setText(Mostrar);
+                txtSenhaAdmin2.setText(Mostrar);
             }
         } catch (SQLException ex) {
             Logger.getLogger(CadastroMedico.class.getName()).log(Level.SEVERE, null, ex);
@@ -1380,6 +1461,24 @@ public class CadastroAdm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCpfMedicoActionPerformed
 
+    private void txtSenhaAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaAdminActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSenhaAdminActionPerformed
+
+    private void txtSenhaAdmin2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaAdmin2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSenhaAdmin2ActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+
+        Login init = new Login();
+        init.setVisible(true); //torna visivel frame de cadastro
+        setVisible(false);//tira a tela de login
+        dispose(); //fecha o form de login (quem chamou)
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1419,6 +1518,7 @@ public class CadastroAdm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Menu;
     private javax.swing.JPanel admin;
     private javax.swing.JButton btnCadastrarAdmin;
     private javax.swing.JButton btnCadastrarClinica;
@@ -1428,6 +1528,7 @@ public class CadastroAdm extends javax.swing.JFrame {
     private javax.swing.JButton btnExcluirAdmin;
     private javax.swing.JButton btnExcluirClinica;
     private javax.swing.JButton btnExcluirMedico;
+    private javax.swing.JButton btnLogout;
     private javax.swing.JCheckBox chkAdm;
     private javax.swing.JPanel clinica;
     private javax.swing.JComboBox<Admin> combAdminMedico;
@@ -1440,6 +1541,8 @@ public class CadastroAdm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1465,7 +1568,8 @@ public class CadastroAdm extends javax.swing.JFrame {
     private javax.swing.JTextField txtNomeAdmin;
     private javax.swing.JTextField txtNomeClinica;
     private javax.swing.JTextField txtNomeMedico;
-    private javax.swing.JTextField txtSenhaAdmin;
+    private javax.swing.JPasswordField txtSenhaAdmin;
+    private javax.swing.JPasswordField txtSenhaAdmin2;
     // End of variables declaration//GEN-END:variables
 
 }
