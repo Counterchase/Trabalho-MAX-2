@@ -858,6 +858,11 @@ public class CadastroAdm extends javax.swing.JFrame {
             String cpf = "'" + txtCpfMedico.getText() + "'";
 
             String dataNasc = "'" + sdf.format(aux) + "'";
+             if( txtNomeMedico.getText().isEmpty() || txtCrmMedico.getText().isEmpty() || txtCpfMedico.getText().isEmpty()){
+            
+                 JOptionPane.showMessageDialog(null, "Preencha Todos os Campos!!");
+            }else{
+            
 
             Statement stmt = conn.createStatement();
 
@@ -890,7 +895,9 @@ public class CadastroAdm extends javax.swing.JFrame {
             tbMedico.setModel(modelo);
 
             //   alinharTbMedicos(tbMedico);
-        } catch (SQLException ex) {
+        } 
+            }
+             catch (SQLException ex) {
             Logger.getLogger(CadastroMedico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1MedicoActionPerformed
@@ -1130,6 +1137,13 @@ public class CadastroAdm extends javax.swing.JFrame {
             } else {
                 adm = 0;
             };
+            
+            if( txtNomeAdmin.getText().isEmpty() || txtLoginAdmin.getText().isEmpty() || txtSenhaAdmin.getText().isEmpty()){
+            
+                 JOptionPane.showMessageDialog(null, "Preencha Todos os Campos!!");
+            }else{
+            
+            
 
             String sql = "INSERT INTO admin(nome, login, senha, adm) VALUES ("
                     + "" + nome + "," + login + "," + senha + "," + adm + ")";
@@ -1171,7 +1185,7 @@ public class CadastroAdm extends javax.swing.JFrame {
                 combAdminMedico.addItem(ladmin.get(i));
 
             }
-
+            }
         } catch (SQLException ex) {
             Logger.getLogger(CadastroMedico.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1196,6 +1210,13 @@ public class CadastroAdm extends javax.swing.JFrame {
             String nome = "'" + txtNomeClinica.getText() + "'";
             String cnpj = "'" + txtCnpjClinica.getText() + "'";
             String cidade = "'" + txtCidadeClinica.getText() + "'";
+            
+             if( txtNomeClinica.getText().isEmpty() || txtCnpjClinica.getText().isEmpty() || txtCidadeClinica.getText().isEmpty()){
+         
+                 JOptionPane.showMessageDialog(null, "Preencha Todos os Campos!!");
+            }else{
+                 
+             
 
             String sql = "INSERT INTO Clinica (nome, cnpj, cidadeclinica) VALUES ("
                     + "" + nome + "," + cnpj + "," + cidade + ")";
@@ -1234,7 +1255,7 @@ public class CadastroAdm extends javax.swing.JFrame {
                 combClinicaMedico.addItem(lclinica.get(i));
 
             }
-
+             }
         } catch (SQLException ex) {
             Logger.getLogger(CadastroMedico.class.getName()).log(Level.SEVERE, null, ex);
         }
