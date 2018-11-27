@@ -390,7 +390,6 @@ public class CadastroAdm extends javax.swing.JFrame {
         txtCrmMedico = new javax.swing.JTextField();
         btnEditarMedico = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
-        txtCpfMedico = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         combClinicaMedico = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
@@ -400,6 +399,7 @@ public class CadastroAdm extends javax.swing.JFrame {
         tbMedico = new javax.swing.JTable();
         txtNomeMedico = new javax.swing.JTextField();
         jButton1Medico = new javax.swing.JButton();
+        txtCpfMedico = new javax.swing.JFormattedTextField();
         admin = new javax.swing.JPanel();
         txtNomeAdmin = new javax.swing.JTextField();
         txtLoginAdmin = new javax.swing.JTextField();
@@ -414,10 +414,12 @@ public class CadastroAdm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         chkAdm = new javax.swing.JCheckBox();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
+        clinica.setBackground(new java.awt.Color(255, 255, 255));
         clinica.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -482,7 +484,7 @@ public class CadastroAdm extends javax.swing.JFrame {
             .addGroup(clinicaLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(clinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1181, Short.MAX_VALUE)
                     .addGroup(clinicaLayout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -491,7 +493,7 @@ public class CadastroAdm extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addGroup(clinicaLayout.createSequentialGroup()
                         .addComponent(btnExcluirClinica)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 454, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1057, Short.MAX_VALUE)
                         .addComponent(btnEditarClinica))
                     .addGroup(clinicaLayout.createSequentialGroup()
                         .addComponent(jLabel5)
@@ -527,11 +529,13 @@ public class CadastroAdm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCadastrarClinica)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Clínica", clinica);
+        jTabbedPane1.addTab("<html>\n<b>Clínica</b>\n</html>", new javax.swing.ImageIcon(getClass().getResource("/banco/IMG/iconfinder_hospital-o_1608931 (1).png")), clinica, "Cadastre Clinicas\n"); // NOI18N
+
+        medico.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel9.setText("Admin:");
 
@@ -602,6 +606,13 @@ public class CadastroAdm extends javax.swing.JFrame {
             }
         });
 
+        txtCpfMedico.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txtCpfMedico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCpfMedicoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout medicoLayout = new javax.swing.GroupLayout(medico);
         medico.setLayout(medicoLayout);
         medicoLayout.setHorizontalGroup(
@@ -609,7 +620,7 @@ public class CadastroAdm extends javax.swing.JFrame {
             .addGroup(medicoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(medicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1181, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, medicoLayout.createSequentialGroup()
                         .addComponent(btnExcluirMedico)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -634,21 +645,20 @@ public class CadastroAdm extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, medicoLayout.createSequentialGroup()
                         .addGroup(medicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(medicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(medicoLayout.createSequentialGroup()
-                                    .addGap(0, 0, Short.MAX_VALUE)
-                                    .addComponent(jLabel13)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                .addGroup(medicoLayout.createSequentialGroup()
-                                    .addComponent(jLabel10)
-                                    .addGap(9, 9, 9)))
                             .addGroup(medicoLayout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(12, 12, 12)))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(medicoLayout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(9, 9, 9)))
                         .addGroup(medicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtCpfMedico, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
-                            .addComponent(txtCrmMedico)
-                            .addComponent(txtNomeMedico))))
+                            .addComponent(txtCrmMedico, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
+                            .addComponent(txtNomeMedico)))
+                    .addGroup(medicoLayout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtCpfMedico)))
                 .addContainerGap())
         );
         medicoLayout.setVerticalGroup(
@@ -666,8 +676,8 @@ public class CadastroAdm extends javax.swing.JFrame {
                     .addComponent(txtCrmMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addGroup(medicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCpfMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11))
+                    .addComponent(jLabel11)
+                    .addComponent(txtCpfMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(medicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDataNascimentoMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -687,11 +697,13 @@ public class CadastroAdm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1Medico)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Médico", medico);
+        jTabbedPane1.addTab("<html><b>Médico</b>", new javax.swing.ImageIcon(getClass().getResource("/banco/IMG/iconfinder_49_3678412.png")), medico, "Cadastre um Médico\n"); // NOI18N
+
+        admin.setBackground(new java.awt.Color(255, 255, 255));
 
         txtNomeAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -764,7 +776,7 @@ public class CadastroAdm extends javax.swing.JFrame {
                 .addGroup(adminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(adminLayout.createSequentialGroup()
                         .addGroup(adminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1181, Short.MAX_VALUE)
                             .addGroup(adminLayout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -817,13 +829,16 @@ public class CadastroAdm extends javax.swing.JFrame {
                     .addComponent(btnCadastrarAdmin)
                     .addComponent(chkAdm))
                 .addGap(47, 47, 47)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Admin", admin);
+        jTabbedPane1.addTab("<html><b>Admin\n", new javax.swing.ImageIcon(getClass().getResource("/banco/IMG/iconfinder_ajax-admin_3018587.png")), admin); // NOI18N
 
         getContentPane().add(jTabbedPane1);
+
+        jButton1.setText("jButton1");
+        getContentPane().add(jButton1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1323,6 +1338,10 @@ public class CadastroAdm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_chkAdmActionPerformed
 
+    private void txtCpfMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCpfMedicoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCpfMedicoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1375,6 +1394,7 @@ public class CadastroAdm extends javax.swing.JFrame {
     private javax.swing.JPanel clinica;
     private javax.swing.JComboBox<Admin> combAdminMedico;
     private javax.swing.JComboBox<Clinica> combClinicaMedico;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton1Medico;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1401,7 +1421,7 @@ public class CadastroAdm extends javax.swing.JFrame {
     private javax.swing.JTable tbMedico;
     private javax.swing.JTextField txtCidadeClinica;
     private javax.swing.JTextField txtCnpjClinica;
-    private javax.swing.JTextField txtCpfMedico;
+    private javax.swing.JFormattedTextField txtCpfMedico;
     private javax.swing.JTextField txtCrmMedico;
     private org.jdesktop.swingx.JXDatePicker txtDataNascimentoMedico;
     private javax.swing.JTextField txtLoginAdmin;
