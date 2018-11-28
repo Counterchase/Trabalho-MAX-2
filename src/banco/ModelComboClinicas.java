@@ -1,6 +1,7 @@
 
 package banco;
 
+import banco.Model.Clinica;
 import javax.swing.ComboBoxModel;
 import javax.swing.event.ListDataListener;
 

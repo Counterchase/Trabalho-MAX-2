@@ -5,6 +5,7 @@
  */
 package banco;
 
+import banco.Model.Clinica;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

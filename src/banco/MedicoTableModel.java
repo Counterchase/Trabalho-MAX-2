@@ -1,6 +1,6 @@
 package banco;
 
-import banco.Medico;
+import banco.Model.Medico;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;

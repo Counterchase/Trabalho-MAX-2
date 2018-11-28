@@ -5,6 +5,9 @@
  */
 package banco;
 
+import banco.Model.Admin;
+import banco.Model.Medico;
+import banco.Model.Clinica;
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import java.sql.Connection;
 import java.sql.ResultSet;

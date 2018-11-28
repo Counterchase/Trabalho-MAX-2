@@ -1,5 +1,6 @@
 package banco;
 
+import banco.Model.Admin;
 import java.util.ArrayList;
 
 import java.util.List;
