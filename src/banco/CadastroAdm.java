@@ -41,7 +41,8 @@ public class CadastroAdm extends javax.swing.JFrame {
     private List<Admin> ladmin;
 
     /**
-     * ALINHANOD TABELAS =============================================================================================================================*
+     * ALINHANOD TABELAS
+     * =============================================================================================================================*
      */
     public void alinharTbAdmins(JTable tb) {
         AdminTableModel modeloAdmin = new AdminTableModel();
@@ -924,46 +925,44 @@ public class CadastroAdm extends javax.swing.JFrame {
             String cpf = "'" + txtCpfMedico.getText() + "'";
 
             String dataNasc = "'" + sdf.format(aux) + "'";
-             if( txtNomeMedico.getText().isEmpty() || txtCrmMedico.getText().isEmpty() || txtCpfMedico.getText().isEmpty()){
-            
-                 JOptionPane.showMessageDialog(null, "Preencha Todos os Campos!!");
-            }else{
-            
+            if (txtNomeMedico.getText().isEmpty() || txtCrmMedico.getText().isEmpty() || txtCpfMedico.getText().isEmpty()) {
 
-            Statement stmt = conn.createStatement();
+                JOptionPane.showMessageDialog(null, "Preencha Todos os Campos!!");
+            } else {
 
-            sql = "INSERT INTO Medico (nome,crm, cpf, datanascimento, idclinica, idadmin ) VALUES ("
-                    + "" + nome + "," + crm + "," + cpf + "," + dataNasc + "," + ((Clinica) combClinicaMedico.getSelectedItem()).getIdclinica() + ","
-                    + " " + ((Admin) combAdminMedico.getSelectedItem()).getIdadmin() + ")";
-            System.out.println("sql: " + sql);
+                Statement stmt = conn.createStatement();
 
-            //atravez desse objeto usamos comandos sql
-            stmt = conn.createStatement();
-            stmt.executeUpdate(sql);
-            //select
-            //stmt.executeQuery(sql);
-            //retorna um conjunto de dados , sempre q for fazer insert usar o executeUpdate : inset, update, delete
+                sql = "INSERT INTO Medico (nome,crm, cpf, datanascimento, idclinica, idadmin ) VALUES ("
+                        + "" + nome + "," + crm + "," + cpf + "," + dataNasc + "," + ((Clinica) combClinicaMedico.getSelectedItem()).getIdclinica() + ","
+                        + " " + ((Admin) combAdminMedico.getSelectedItem()).getIdadmin() + ")";
+                System.out.println("sql: " + sql);
 
-            //encerrou a conexão
-            stmt.close();
-            conn.close();
-            JOptionPane.showMessageDialog(null, "Médico(a) cadastrado!");
-           
-            txtNomeMedico.setText(Mostrar);
-            txtCpfMedico.setText(Mostrar);
-            txtCrmMedico.setText(Mostrar);
+                //atravez desse objeto usamos comandos sql
+                stmt = conn.createStatement();
+                stmt.executeUpdate(sql);
+                //select
+                //stmt.executeQuery(sql);
+                //retorna um conjunto de dados , sempre q for fazer insert usar o executeUpdate : inset, update, delete
 
-            medicos = listarTbMedico();
+                //encerrou a conexão
+                stmt.close();
+                conn.close();
+                JOptionPane.showMessageDialog(null, "Médico(a) cadastrado!");
 
-            MedicoTableModel modelo = new MedicoTableModel();
-            modelo.setListamedicos(medicos);
+                txtNomeMedico.setText(Mostrar);
+                txtCpfMedico.setText(Mostrar);
+                txtCrmMedico.setText(Mostrar);
 
-            tbMedico.setModel(modelo);
+                medicos = listarTbMedico();
 
-            //   alinharTbMedicos(tbMedico);
-        } 
+                MedicoTableModel modelo = new MedicoTableModel();
+                modelo.setListamedicos(medicos);
+
+                tbMedico.setModel(modelo);
+
+                //   alinharTbMedicos(tbMedico);
             }
-             catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(CadastroMedico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1MedicoActionPerformed
@@ -994,30 +993,30 @@ public class CadastroAdm extends javax.swing.JFrame {
             String dataNasc = "'" + sdf.format(aux) + "'";
 
             int k = tbMedico.getSelectedRow();
-            if( k == -1){
+            if (k == -1) {
                 JOptionPane.showMessageDialog(null, "Porfavor Complete os Campos e Selecione a Linha na Tabela a ser editada e em Seguida clicke no botao Editar");
-            }else{
-            // System.out.println(k);
-            int i = ((MedicoTableModel) tbMedico.getModel()).getListamedicos().get(k).getIdmedico();
+            } else {
+                // System.out.println(k);
+                int i = ((MedicoTableModel) tbMedico.getModel()).getListamedicos().get(k).getIdmedico();
 
-            Statement stmt = conn.createStatement();
-            String sql = "UPDATE medico SET nome = " + nome + ",crm = " + crm + ",cpf = " + cpf + ",datanascimento = " + dataNasc + "WHERE idmedico = " + i + "";
-            stmt.executeUpdate(sql);
+                Statement stmt = conn.createStatement();
+                String sql = "UPDATE medico SET nome = " + nome + ",crm = " + crm + ",cpf = " + cpf + ",datanascimento = " + dataNasc + "WHERE idmedico = " + i + "";
+                stmt.executeUpdate(sql);
 
-            stmt.close();
-            conn.close();
+                stmt.close();
+                conn.close();
 
-            JOptionPane.showMessageDialog(null, "Médico(a) Editado!");
+                JOptionPane.showMessageDialog(null, "Médico(a) Editado!");
 
-            String Mostrar = " ";
-            txtNomeMedico.setText(Mostrar);
-            txtCpfMedico.setText(Mostrar);
-            txtCrmMedico.setText(Mostrar);
+                String Mostrar = " ";
+                txtNomeMedico.setText(Mostrar);
+                txtCpfMedico.setText(Mostrar);
+                txtCrmMedico.setText(Mostrar);
 
-            medicos = listarTbMedico();
-            MedicoTableModel modelo = new MedicoTableModel();
-            modelo.setListamedicos(medicos);
-            tbMedico.setModel(modelo);
+                medicos = listarTbMedico();
+                MedicoTableModel modelo = new MedicoTableModel();
+                modelo.setListamedicos(medicos);
+                tbMedico.setModel(modelo);
             }
         } catch (SQLException ex) {
             Logger.getLogger(CadastroMedico.class.getName()).log(Level.SEVERE, null, ex);
@@ -1036,30 +1035,30 @@ public class CadastroAdm extends javax.swing.JFrame {
             }
 
             int k = tbMedico.getSelectedRow();
-            if( k == -1){
-            JOptionPane.showMessageDialog(null, "Selecione um Admin para deletar");
-            }else{
-            // System.out.println(k);
-            int i = ((MedicoTableModel) tbMedico.getModel()).getListamedicos().get(k).getIdmedico();
+            if (k == -1) {
+                JOptionPane.showMessageDialog(null, "Selecione um Admin para deletar");
+            } else {
+                // System.out.println(k);
+                int i = ((MedicoTableModel) tbMedico.getModel()).getListamedicos().get(k).getIdmedico();
 
-            Statement stmt = conn.createStatement();
-            String sql = "Delete from medico where idmedico = " + i + " ";
-            stmt.executeUpdate(sql);
+                Statement stmt = conn.createStatement();
+                String sql = "Delete from medico where idmedico = " + i + " ";
+                stmt.executeUpdate(sql);
 
-            stmt.close();
-            conn.close();
+                stmt.close();
+                conn.close();
 
-            JOptionPane.showMessageDialog(null, "Médico(a) Apagado!");
+                JOptionPane.showMessageDialog(null, "Médico(a) Apagado!");
 
-            String Mostrar = " ";
-            txtNomeMedico.setText(Mostrar);
-            txtCpfMedico.setText(Mostrar);
-            txtCrmMedico.setText(Mostrar);
+                String Mostrar = " ";
+                txtNomeMedico.setText(Mostrar);
+                txtCpfMedico.setText(Mostrar);
+                txtCrmMedico.setText(Mostrar);
 
-            medicos = listarTbMedico();
-            MedicoTableModel modelo = new MedicoTableModel();
-            modelo.setListamedicos(medicos);
-            tbMedico.setModel(modelo);
+                medicos = listarTbMedico();
+                MedicoTableModel modelo = new MedicoTableModel();
+                modelo.setListamedicos(medicos);
+                tbMedico.setModel(modelo);
             }
         } catch (SQLException ex) {
             Logger.getLogger(CadastroMedico.class.getName()).log(Level.SEVERE, null, ex);
@@ -1072,6 +1071,7 @@ public class CadastroAdm extends javax.swing.JFrame {
 
     @SuppressWarnings("empty-statement")
     private void btnEditarAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAdminActionPerformed
+        String Mostrar = null;
         conn = Banco.conecta();
 
         try {
@@ -1092,39 +1092,41 @@ public class CadastroAdm extends javax.swing.JFrame {
             };
 
             int k = tbAdmin.getSelectedRow();
-            if( k == -1){
+            if (k == -1) {
                 JOptionPane.showMessageDialog(null, "Porfavor Complete os Campos e Selecione a Linha na Tabela a ser editada e em Seguida clicke no botao Editar");
-            }else{
-            // System.out.println(k);
+                txtSenhaAdmin.setText(Mostrar);
+                txtSenhaAdmin2.setText(Mostrar);
+            } else {
+                // System.out.println(k);
 
-            int i = ((AdminTableModel) tbAdmin.getModel()).getListaAdmins().get(k).getIdadmin();
+                int i = ((AdminTableModel) tbAdmin.getModel()).getListaAdmins().get(k).getIdadmin();
 
-            try (Statement stmt = conn.createStatement()) {
-                String sql = "UPDATE admin SET nome = " + nome + ",login = " + login + ",senha = " + senha + ",adm = " + adm + " WHERE idadmin = " + i + "";
-                stmt.executeUpdate(sql);
-            }
-            conn.close();
+                try (Statement stmt = conn.createStatement()) {
+                    String sql = "UPDATE admin SET nome = " + nome + ",login = " + login + ",senha = " + senha + ",adm = " + adm + " WHERE idadmin = " + i + "";
+                    stmt.executeUpdate(sql);
+                }
+                conn.close();
 
-            JOptionPane.showMessageDialog(null, "Admin Editado!");
+                JOptionPane.showMessageDialog(null, "Admin Editado!");
 
-            String Mostrar = " ";
-            txtNomeAdmin.setText(Mostrar);
-            txtLoginAdmin.setText(Mostrar);
-            txtSenhaAdmin.setText(Mostrar);
+                txtNomeAdmin.setText(Mostrar);
+                txtLoginAdmin.setText(Mostrar);
+                txtSenhaAdmin.setText(Mostrar);
+                txtSenhaAdmin2.setText(Mostrar);
 
-            Admins = listarTbAdmin();
-            AdminTableModel modelo = new AdminTableModel();
-            modelo.setListaAdmins(Admins);
-            tbAdmin.setModel(modelo);
+                Admins = listarTbAdmin();
+                AdminTableModel modelo = new AdminTableModel();
+                modelo.setListaAdmins(Admins);
+                tbAdmin.setModel(modelo);
 
-            combAdminMedico.removeAllItems();
+                combAdminMedico.removeAllItems();
 
-            ladmin = listarAdmins();
+                ladmin = listarAdmins();
 
-            for (int i2 = 0; i2 < ladmin.size(); i2++) {
-                combAdminMedico.addItem(ladmin.get(i2));
+                for (int i2 = 0; i2 < ladmin.size(); i2++) {
+                    combAdminMedico.addItem(ladmin.get(i2));
 
-            }
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(CadastroMedico.class.getName()).log(Level.SEVERE, null, ex);
@@ -1142,49 +1144,44 @@ public class CadastroAdm extends javax.swing.JFrame {
             }
 
             int k = tbAdmin.getSelectedRow();
-            if( k == -1){
-            JOptionPane.showMessageDialog(null, "Selecione um Admin para deletar");
-            }else{
-            
-            
-            // System.out.println(k);
-            int i = ((AdminTableModel) tbAdmin.getModel()).getListaAdmins().get(k).getIdadmin();
-            
+            if (k == -1) {
+                JOptionPane.showMessageDialog(null, "Selecione um Admin para deletar");
+            } else {
 
-            Statement stmt = conn.createStatement();
-            if(i == 1){
-                JOptionPane.showMessageDialog(null, "Nao é Possivel apagar o Admin Nativo!");
-            }else{
-                
-            String sql = "Delete from admin where idadmin = " + i + " ";
-            stmt.executeUpdate(sql);
-            JOptionPane.showMessageDialog(null, "Admin Apagado!");
-            
-            }
-            
+                // System.out.println(k);
+                int i = ((AdminTableModel) tbAdmin.getModel()).getListaAdmins().get(k).getIdadmin();
 
-            stmt.close();
-            conn.close();
+                Statement stmt = conn.createStatement();
+                if (i == 1) {
+                    JOptionPane.showMessageDialog(null, "Nao é Possivel apagar o Admin Nativo!");
+                } else {
 
-            
+                    String sql = "Delete from admin where idadmin = " + i + " ";
+                    stmt.executeUpdate(sql);
+                    JOptionPane.showMessageDialog(null, "Admin Apagado!");
 
-            String Mostrar = " ";
-            txtNomeAdmin.setText(Mostrar);
-            txtLoginAdmin.setText(Mostrar);
-            txtSenhaAdmin.setText(Mostrar);
+                }
 
-            Admins = listarTbAdmin();
-            AdminTableModel modelo = new AdminTableModel();
-            modelo.setListaAdmins(Admins);
-            tbAdmin.setModel(modelo);
+                stmt.close();
+                conn.close();
 
-            combAdminMedico.removeAllItems();
-            ladmin = listarAdmins();
+                String Mostrar = " ";
+                txtNomeAdmin.setText(Mostrar);
+                txtLoginAdmin.setText(Mostrar);
+                txtSenhaAdmin.setText(Mostrar);
 
-            for (int i3 = 0; i3 < ladmin.size(); i3++) {
-                combAdminMedico.addItem(ladmin.get(i3));
+                Admins = listarTbAdmin();
+                AdminTableModel modelo = new AdminTableModel();
+                modelo.setListaAdmins(Admins);
+                tbAdmin.setModel(modelo);
 
-            }
+                combAdminMedico.removeAllItems();
+                ladmin = listarAdmins();
+
+                for (int i3 = 0; i3 < ladmin.size(); i3++) {
+                    combAdminMedico.addItem(ladmin.get(i3));
+
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(CadastroMedico.class.getName()).log(Level.SEVERE, null, ex);
@@ -1205,73 +1202,64 @@ public class CadastroAdm extends javax.swing.JFrame {
             String login = "'" + txtLoginAdmin.getText() + "'";
             String senha = "'" + txtSenhaAdmin.getText() + "'";
             String senha2 = "'" + txtSenhaAdmin2.getText() + "'";
-            
-            if(senha.equals(senha2)){
-                
-                
-                
-                
-  
-            
-            
-            Integer adm = null;
-            if (chkAdm.isSelected()) {
-                adm = 1;
+
+            if (senha.equals(senha2)) {
+
+                Integer adm = null;
+                if (chkAdm.isSelected()) {
+                    adm = 1;
+                } else {
+                    adm = 0;
+                };
+
+                if (txtNomeAdmin.getText().isEmpty() || txtLoginAdmin.getText().isEmpty() || txtSenhaAdmin.getText().isEmpty()) {
+
+                    JOptionPane.showMessageDialog(null, "Preencha Todos os Campos!!");
+                } else {
+
+                    String sql = "INSERT INTO admin(nome, login, senha, adm) VALUES ("
+                            + "" + nome + "," + login + "," + senha + "," + adm + ")";
+                    System.out.println("sql: " + sql);
+
+                    //atravez desse objeto usamos comandos sql
+                    Statement stmt = conn.createStatement();
+
+                    //select
+                    //stmt.executeQuery(sql);
+                    //retorna um conjunto de dados , sempre q for fazer insert usar o executeUpdate : inset, update, delete
+                    stmt.executeUpdate(sql);
+                    JOptionPane.showMessageDialog(null, "Admin" + nome + "cadastrado!!");
+
+                    //encerrou a conexão
+                    stmt.close();
+                    conn.close();
+
+                    txtNomeAdmin.setText(Mostrar);
+                    txtLoginAdmin.setText(Mostrar);
+                    txtSenhaAdmin.setText(Mostrar);
+                    txtSenhaAdmin2.setText(Mostrar);
+
+                    Admins = listarTbAdmin();
+
+                    AdminTableModel modelo = new AdminTableModel();
+                    modelo.setListaAdmins(Admins);
+
+                    tbAdmin.setModel(modelo);
+
+                    for (int i = 0; i < ladmin.size(); i++) {
+                        combAdminMedico.addItem(ladmin.get(i));
+
+                    }
+                    combAdminMedico.removeAllItems();
+                    ladmin = listarAdmins();
+
+                    for (int i = 0; i < ladmin.size(); i++) {
+                        combAdminMedico.addItem(ladmin.get(i));
+
+                    }
+                }
             } else {
-                adm = 0;
-            };
-            
-            if( txtNomeAdmin.getText().isEmpty() || txtLoginAdmin.getText().isEmpty() || txtSenhaAdmin.getText().isEmpty()){
-            
-                 JOptionPane.showMessageDialog(null, "Preencha Todos os Campos!!");
-            }else{
-            
-            
-
-            String sql = "INSERT INTO admin(nome, login, senha, adm) VALUES ("
-                    + "" + nome + "," + login + "," + senha + "," + adm + ")";
-            System.out.println("sql: " + sql);
-
-            //atravez desse objeto usamos comandos sql
-            Statement stmt = conn.createStatement();
-
-            //select
-            //stmt.executeQuery(sql);
-            //retorna um conjunto de dados , sempre q for fazer insert usar o executeUpdate : inset, update, delete
-            stmt.executeUpdate(sql);
-            JOptionPane.showMessageDialog(null, "Admin" + nome + "cadastrado!!");
-
-            //encerrou a conexão
-            stmt.close();
-            conn.close();
-
-           
-            txtNomeAdmin.setText(Mostrar);
-            txtLoginAdmin.setText(Mostrar);
-            txtSenhaAdmin.setText(Mostrar);
-            txtSenhaAdmin2.setText(Mostrar);
-
-            Admins = listarTbAdmin();
-
-            AdminTableModel modelo = new AdminTableModel();
-            modelo.setListaAdmins(Admins);
-
-            tbAdmin.setModel(modelo);
-
-            for (int i = 0; i < ladmin.size(); i++) {
-                combAdminMedico.addItem(ladmin.get(i));
-
-            }
-            combAdminMedico.removeAllItems();
-            ladmin = listarAdmins();
-
-            for (int i = 0; i < ladmin.size(); i++) {
-                combAdminMedico.addItem(ladmin.get(i));
-
-            }
-            }
-        }else{
-            JOptionPane.showMessageDialog(null, "Senhas Não São Iguais!");
+                JOptionPane.showMessageDialog(null, "Senhas Não São Iguais!");
                 txtSenhaAdmin.setText(Mostrar);
                 txtSenhaAdmin2.setText(Mostrar);
             }
@@ -1299,52 +1287,50 @@ public class CadastroAdm extends javax.swing.JFrame {
             String nome = "'" + txtNomeClinica.getText() + "'";
             String cnpj = "'" + txtCnpjClinica.getText() + "'";
             String cidade = "'" + txtCidadeClinica.getText() + "'";
-            
-             if( txtNomeClinica.getText().isEmpty() || txtCnpjClinica.getText().isEmpty() || txtCidadeClinica.getText().isEmpty()){
-         
-                 JOptionPane.showMessageDialog(null, "Preencha Todos os Campos!!");
-            }else{
-                 
-             
 
-            String sql = "INSERT INTO Clinica (nome, cnpj, cidadeclinica) VALUES ("
-                    + "" + nome + "," + cnpj + "," + cidade + ")";
-            System.out.println("sql: " + sql);
+            if (txtNomeClinica.getText().isEmpty() || txtCnpjClinica.getText().isEmpty() || txtCidadeClinica.getText().isEmpty()) {
 
-            //atravez desse objeto usamos comandos sql
-            Statement stmt = conn.createStatement();
+                JOptionPane.showMessageDialog(null, "Preencha Todos os Campos!!");
+            } else {
 
-            //select
-            //stmt.executeQuery(sql);
-            //retorna um conjunto de dados , sempre q for fazer insert usar o executeUpdate : inset, update, delete
-            stmt.executeUpdate(sql);
-            JOptionPane.showMessageDialog(null, "Clínica  " + nome + "  cadastrada!!");
+                String sql = "INSERT INTO Clinica (nome, cnpj, cidadeclinica) VALUES ("
+                        + "" + nome + "," + cnpj + "," + cidade + ")";
+                System.out.println("sql: " + sql);
 
-            //encerrou a conexão
-            stmt.close();
-            conn.close();
+                //atravez desse objeto usamos comandos sql
+                Statement stmt = conn.createStatement();
 
-            String Mostrar = " ";
-            txtNomeClinica.setText(Mostrar);
-            txtCnpjClinica.setText(Mostrar);
-            txtCidadeClinica.setText(Mostrar);
+                //select
+                //stmt.executeQuery(sql);
+                //retorna um conjunto de dados , sempre q for fazer insert usar o executeUpdate : inset, update, delete
+                stmt.executeUpdate(sql);
+                JOptionPane.showMessageDialog(null, "Clínica  " + nome + "  cadastrada!!");
 
-            Clinicas = listarTbClinica();
+                //encerrou a conexão
+                stmt.close();
+                conn.close();
 
-            ClinicaTableModel modelo = new ClinicaTableModel();
-            modelo.setListaClinicas(Clinicas);
+                String Mostrar = " ";
+                txtNomeClinica.setText(Mostrar);
+                txtCnpjClinica.setText(Mostrar);
+                txtCidadeClinica.setText(Mostrar);
 
-            tbClinica.setModel(modelo);
+                Clinicas = listarTbClinica();
 
-            combClinicaMedico.removeAllItems();
+                ClinicaTableModel modelo = new ClinicaTableModel();
+                modelo.setListaClinicas(Clinicas);
 
-            lclinica = listarClinicas();
+                tbClinica.setModel(modelo);
 
-            for (int i = 0; i < lclinica.size(); i++) {
-                combClinicaMedico.addItem(lclinica.get(i));
+                combClinicaMedico.removeAllItems();
 
+                lclinica = listarClinicas();
+
+                for (int i = 0; i < lclinica.size(); i++) {
+                    combClinicaMedico.addItem(lclinica.get(i));
+
+                }
             }
-             }
         } catch (SQLException ex) {
             Logger.getLogger(CadastroMedico.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1369,45 +1355,45 @@ public class CadastroAdm extends javax.swing.JFrame {
 
             }
 
-            String nome = "'" + txtNomeAdmin.getText() + "'";
+            String nome = "'" + txtNomeClinica.getText() + "'";
             String cnpj = "'" + txtCnpjClinica.getText() + "'";
             String cidade = "'" + txtCidadeClinica.getText() + "'";
 
             int k = tbClinica.getSelectedRow();
-            if( k == -1){
+            if (k == -1) {
                 JOptionPane.showMessageDialog(null, "Porfavor Complete os Campos e Selecione a Linha na Tabela a ser editada e em Seguida clicke no botao Editar");
-            }else{
-            // System.out.println(k);
+            } else {
+                // System.out.println(k);
 
-            int i = ((ClinicaTableModel) tbClinica.getModel()).getListaclinicas().get(k).getIdclinica();
+                int i = ((ClinicaTableModel) tbClinica.getModel()).getListaclinicas().get(k).getIdclinica();
 
-            Statement stmt = conn.createStatement();
-            String sql = "UPDATE clinica SET nome = " + nome + ",cnpj = " + cnpj + ",cidadeclinica = " + cidade + " WHERE idclinica = " + i + "";
-            stmt.executeUpdate(sql);
+                Statement stmt = conn.createStatement();
+                String sql = "UPDATE clinica SET nome = " + nome + ",cnpj = " + cnpj + ",cidadeclinica = " + cidade + " WHERE idclinica = " + i + "";
+                stmt.executeUpdate(sql);
 
-            stmt.close();
-            conn.close();
+                stmt.close();
+                conn.close();
 
-            JOptionPane.showMessageDialog(null, "Clinica Editada!");
+                JOptionPane.showMessageDialog(null, "Clinica Editada!");
 
-            String Mostrar = " ";
-            txtNomeAdmin.setText(Mostrar);
-            txtCnpjClinica.setText(Mostrar);
-            txtCidadeClinica.setText(Mostrar);
+                String Mostrar = " ";
+                txtNomeClinica.setText(Mostrar);
+                txtCnpjClinica.setText(Mostrar);
+                txtCidadeClinica.setText(Mostrar);
 
-            Clinicas = listarTbClinica();
-            ClinicaTableModel modelo = new ClinicaTableModel();
-            modelo.setListaClinicas(Clinicas);
-            tbClinica.setModel(modelo);
+                Clinicas = listarTbClinica();
+                ClinicaTableModel modelo = new ClinicaTableModel();
+                modelo.setListaClinicas(Clinicas);
+                tbClinica.setModel(modelo);
 
-            combClinicaMedico.removeAllItems();
+                combClinicaMedico.removeAllItems();
 
-            lclinica = listarClinicas();
+                lclinica = listarClinicas();
 
-            for (int i2 = 0; i2 < lclinica.size(); i2++) {
-                combClinicaMedico.addItem(lclinica.get(i2));
+                for (int i2 = 0; i2 < lclinica.size(); i2++) {
+                    combClinicaMedico.addItem(lclinica.get(i2));
 
-            }
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(CadastroMedico.class.getName()).log(Level.SEVERE, null, ex);
@@ -1425,39 +1411,39 @@ public class CadastroAdm extends javax.swing.JFrame {
             }
 
             int k = tbClinica.getSelectedRow();
-            if( k == -1){
-            JOptionPane.showMessageDialog(null, "Selecione um Admin para deletar");
-            }else{
-            // System.out.println(k);
-            int i = ((ClinicaTableModel) tbClinica.getModel()).getListaclinicas().get(k).getIdclinica();
+            if (k == -1) {
+                JOptionPane.showMessageDialog(null, "Selecione um Admin para deletar");
+            } else {
+                // System.out.println(k);
+                int i = ((ClinicaTableModel) tbClinica.getModel()).getListaclinicas().get(k).getIdclinica();
 
-            Statement stmt = conn.createStatement();
-            String sql = "Delete from clinica where idclinica = " + i + " ";
-            stmt.executeUpdate(sql);
+                Statement stmt = conn.createStatement();
+                String sql = "Delete from clinica where idclinica = " + i + " ";
+                stmt.executeUpdate(sql);
 
-            stmt.close();
-            conn.close();
+                stmt.close();
+                conn.close();
 
-            JOptionPane.showMessageDialog(null, "Clinica Apagada!");
+                JOptionPane.showMessageDialog(null, "Clinica Apagada!");
 
-            String Mostrar = " ";
-            txtNomeAdmin.setText(Mostrar);
-            txtCnpjClinica.setText(Mostrar);
-            txtCidadeClinica.setText(Mostrar);
+                String Mostrar = " ";
+                txtNomeAdmin.setText(Mostrar);
+                txtCnpjClinica.setText(Mostrar);
+                txtCidadeClinica.setText(Mostrar);
 
-            Clinicas = listarTbClinica();
-            ClinicaTableModel modelo = new ClinicaTableModel();
-            modelo.setListaClinicas(Clinicas);
-            tbClinica.setModel(modelo);
+                Clinicas = listarTbClinica();
+                ClinicaTableModel modelo = new ClinicaTableModel();
+                modelo.setListaClinicas(Clinicas);
+                tbClinica.setModel(modelo);
 
-            combClinicaMedico.removeAllItems();
+                combClinicaMedico.removeAllItems();
 
-            lclinica = listarClinicas();
+                lclinica = listarClinicas();
 
-            for (int i2 = 0; i2 < lclinica.size(); i2++) {
-                combClinicaMedico.addItem(lclinica.get(i2));
+                for (int i2 = 0; i2 < lclinica.size(); i2++) {
+                    combClinicaMedico.addItem(lclinica.get(i2));
 
-            }
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(CadastroMedico.class.getName()).log(Level.SEVERE, null, ex);

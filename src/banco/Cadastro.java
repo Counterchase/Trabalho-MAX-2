@@ -5,7 +5,6 @@
  */
 package banco;
 
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,26 +35,25 @@ public class Cadastro extends javax.swing.JFrame {
 
     private List<Admin> Admins;
     private List<Clinica> Clinicas;
-      private List<Medico> medicos;
+    private List<Medico> medicos;
     private List<Clinica> lclinica;
     private List<Admin> ladmin;
-    
-    
-    
-    
-    /**ALINHANOD TABELAS =============================================================================================================================**/
 
+    /**
+     * ALINHANOD TABELAS =============================================================================================================================*
+     */
     public void alinharTbAdmins(JTable tb) {
         AdminTableModel modeloAdmin = new AdminTableModel();
-        
+
         DefaultTableCellRenderer dtcr = new DefaultTableCellHeaderRenderer();
-        
+
         dtcr.setHorizontalAlignment(SwingConstants.CENTER);
-        
+
         for (int i = 0; i < 4; i++) {
             tb.getColumnModel().getColumn(i).setCellRenderer(dtcr);
         }
     }
+
     public void alinharTbClinicas(JTable tb) {
         ClinicaTableModel modeloClinica = new ClinicaTableModel();
 
@@ -67,26 +65,26 @@ public class Cadastro extends javax.swing.JFrame {
             tb.getColumnModel().getColumn(i).setCellRenderer(dtcr);
         }
     }
+
     public void alinharTbMedicos(JTable tb) {
         MedicoTableModel modeloMedico = new MedicoTableModel();
-        
+
         DefaultTableCellRenderer dtcr = new DefaultTableCellHeaderRenderer();
-        
+
         dtcr.setHorizontalAlignment(SwingConstants.CENTER);
-        
+
         for (int i = 0; i < 4; i++) {
             tb.getColumnModel().getColumn(i).setCellRenderer(dtcr);
         }
     }
+
     /*========================================================================================================================================*/
-    
-    
-    /*LISTANDO TABELAS ==================================================================================*/
+
+ /*LISTANDO TABELAS ==================================================================================*/
     public List<Admin> listarTbAdmin() throws SQLException {
         Admins = new ArrayList<>();
         lclinica = new ArrayList<>();
         ladmin = new ArrayList<>();
-        
 
         conn = Banco.conecta();
         if (conn == null || conn.isClosed()) {
@@ -122,6 +120,7 @@ public class Cadastro extends javax.swing.JFrame {
         return Admins;
 
     }
+
     public List<Clinica> listarTbClinica() throws SQLException {
         Clinicas = new ArrayList<>();
 
@@ -159,6 +158,7 @@ public class Cadastro extends javax.swing.JFrame {
         return Clinicas;
 
     }
+
     public List<Medico> listarTbMedico() throws SQLException {
         medicos = new ArrayList<>();
         conn = Banco.conecta();
@@ -174,21 +174,19 @@ public class Cadastro extends javax.swing.JFrame {
 
         //select
         ResultSet res = stmt.executeQuery(sql);
-       
-        
+
         while (res.next()) {
-            
+
             Medico m = new Medico();;
             m.setIdmedico(res.getInt("idmedico"));
             m.setNome(res.getString("nome"));
             m.setCpf(res.getString("cpf").toString());
             m.setCrm(res.getString("crm"));
-            
+
             Calendar c = Calendar.getInstance();
-            c.setTime(res.getDate("datanascimento"));     
+            c.setTime(res.getDate("datanascimento"));
             m.setDatanascimento(c);
-            
-            
+
             m.setIdclinica(res.getInt("idclinica"));
             m.setIdadmin(res.getInt("idadmin"));
             medicos.add(m);
@@ -196,24 +194,24 @@ public class Cadastro extends javax.swing.JFrame {
         stmt.close();
         conn.close();
         return medicos;
-        
+
     }
+
     /*==========================================================================================================================================*/
-   
-    /*LISTAR CLINICA E ADMIN COMBO BOX =============================================================================================================*/
-    
+
+ /*LISTAR CLINICA E ADMIN COMBO BOX =============================================================================================================*/
     public List<Admin> listarAdmins() throws SQLException {
-        
+
         List<Admin> Admins = new ArrayList<>();
-        
+
         conn = Banco.conecta();
         if (conn == null || conn.isClosed()) {
             System.out.println("erro ao conectar ao banco de dados");
             System.exit(-1);
         }
-        
+
         String sql = "SELECT idadmin, nome,login, senha FROM admin";
-        
+
         System.out.println("sql: " + sql);
         Statement stmt = conn.createStatement();
 
@@ -224,53 +222,53 @@ public class Cadastro extends javax.swing.JFrame {
             System.out.println("Nome:  " + res.getString("nome"));
             System.out.println("Login:  " + res.getString("login"));
             System.out.println("Senha:  " + res.getString("senha"));
-            
+
             Admin b = new Admin();
             b.setIdadmin(res.getInt("idadmin"));
             b.setNome(res.getString("nome"));
             b.setLogin(res.getString("login"));
             b.setSenha(res.getString("senha"));
-            
+
             Admins.add(b);
-            
+
         }
         return Admins;
-        
+
     }
-    
+
     public List<Clinica> listarClinicas() throws SQLException {
-        
+
         List<Clinica> Clinicas = new ArrayList<>();
         conn = Banco.conecta();
         if (conn == null || conn.isClosed()) {
             System.out.println("erro ao conectar ao banco de dados");
             System.exit(-1);
         }
-        
+
         String sql = "SELECT idclinica, nome,cnpj, cidadeclinica FROM Clinica";
-        
+
         System.out.println("sql: " + sql);
         Statement stmt = conn.createStatement();
 
         //retorna um conjunto de dados , sempre q for fazer insert usar o executeUpdate
         ResultSet res = stmt.executeQuery(sql);
         while (res.next()) {
-            
+
             Clinica a = new Clinica();
             a.setIdclinica(res.getInt("idclinica"));
             a.setNome(res.getString("nome"));
             a.setCnpj(res.getString("cnpj"));
             a.setCidadeclinica(res.getString("cidadeclinica"));
-            
+
             Clinicas.add(a);
-            
+
         }
         return Clinicas;
-        
+
     }
-    
+
     /*==========================================================================================================================*/
-    /*INICIALIZANDO COMPONENTESS====================================================================================================================*/
+ /*INICIALIZANDO COMPONENTESS====================================================================================================================*/
     public Cadastro() {
         initComponents();
         setLocationRelativeTo(null);
@@ -298,7 +296,7 @@ public class Cadastro extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         try {
             ladmin = listarAdmins();
         } catch (SQLException ex) {
@@ -309,35 +307,33 @@ public class Cadastro extends javax.swing.JFrame {
         modeloAdmin.setListaAdmins(Admins);
 
         tbAdmin.setModel(modeloAdmin);
-        
+
         ClinicaTableModel modeloClinica = new ClinicaTableModel();
         modeloClinica.setListaClinicas(Clinicas);
 
         tbClinica.setModel(modeloClinica);
         alinharTbClinicas(tbClinica);
-        
-      //  alinharTbAdmins(tbAdmin);
-        
+
+        //  alinharTbAdmins(tbAdmin);
         MedicoTableModel modeloMedico = new MedicoTableModel();
         modeloMedico.setListamedicos(medicos);
-        
+
         tbMedico.setModel(modeloMedico);
-        
+
         for (int i = 0; i < lclinica.size(); i++) {
             combClinicaMedico.addItem(lclinica.get(i));
-            
+
         }
-        
-        
+
         for (int i = 0; i < ladmin.size(); i++) {
             combAdminMedico.addItem(ladmin.get(i));
-            
+
         }
-        
+
         medicos = new ArrayList<>();
-        
+
         conn = Banco.conecta();
-        
+
         try {
             if (conn == null || conn.isClosed()) {
                 System.out.println("erro ao conectar ao banco de dados");
@@ -346,7 +342,7 @@ public class Cadastro extends javax.swing.JFrame {
 
             //encerrou a conexão
             conn.close();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(CadastroClinica.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -354,8 +350,7 @@ public class Cadastro extends javax.swing.JFrame {
         //txtDataNascimento.setFormats(new SimpleDateFormat("dd/MM/yyyy"));
         txtDataNascimentoMedico.setFormats("dd/MM/yyyy");
         txtDataNascimentoMedico.setDate(Calendar.getInstance().getTime());
-        
-   
+
     }
 
     /**
@@ -881,7 +876,7 @@ public class Cadastro extends javax.swing.JFrame {
             int i = ((AdminTableModel) tbAdmin.getModel()).getListaAdmins().get(k).getIdadmin();
 
             Statement stmt = conn.createStatement();
-            String sql = "UPDATE admin SET nome = "+nome+",login = "+ login +",senha = "+ senha +" WHERE idadmin = " + i +"";
+            String sql = "UPDATE admin SET nome = " + nome + ",login = " + login + ",senha = " + senha + " WHERE idadmin = " + i + "";
             stmt.executeUpdate(sql);
 
             stmt.close();
@@ -968,11 +963,11 @@ public class Cadastro extends javax.swing.JFrame {
             }
 
             String nome = "'" + txtNomeAdmin.getText() + "'";
-            String login= "'" + txtLoginAdmin.getText() + "'";
-            String senha= "'" + txtSenhaAdmin.getText() + "'";
+            String login = "'" + txtLoginAdmin.getText() + "'";
+            String senha = "'" + txtSenhaAdmin.getText() + "'";
 
             String sql = "INSERT INTO admin(nome, login, senha) VALUES ("
-            + "" + nome + "," + login + "," + senha+ ")";
+                    + "" + nome + "," + login + "," + senha + ")";
             System.out.println("sql: " + sql);
 
             //atravez desse objeto usamos comandos sql
@@ -982,7 +977,7 @@ public class Cadastro extends javax.swing.JFrame {
             //stmt.executeQuery(sql);
             //retorna um conjunto de dados , sempre q for fazer insert usar o executeUpdate : inset, update, delete
             stmt.executeUpdate(sql);
-            JOptionPane.showMessageDialog(null, "Admin"+nome+"cadastrado!!");
+            JOptionPane.showMessageDialog(null, "Admin" + nome + "cadastrado!!");
 
             //encerrou a conexão
             stmt.close();
@@ -1046,9 +1041,9 @@ public class Cadastro extends javax.swing.JFrame {
             }
 
             int k = tbClinica.getSelectedRow();
-            if( k == -1){
+            if (k == -1) {
                 JOptionPane.showMessageDialog(null, "Selecione um Admin para deletar");
-            }else{
+            } else {
                 // System.out.println(k);
                 int i = ((ClinicaTableModel) tbClinica.getModel()).getListaclinicas().get(k).getIdclinica();
 
@@ -1096,45 +1091,45 @@ public class Cadastro extends javax.swing.JFrame {
 
             }
 
-            String nome = "'" + txtNomeAdmin.getText() + "'";
+            String nome = "'" + txtNomeClinica.getText() + "'";
             String cnpj = "'" + txtCnpjClinica.getText() + "'";
             String cidade = "'" + txtCidadeClinica.getText() + "'";
 
             int k = tbClinica.getSelectedRow();
-            if( k == -1){
+            if (k == -1) {
                 JOptionPane.showMessageDialog(null, "Porfavor Complete os Campos e Selecione a Linha na Tabela a ser editada e em Seguida clicke no botao Editar");
-            }else{
-            // System.out.println(k);
+            } else {
+                // System.out.println(k);
 
-            int i = ((ClinicaTableModel) tbClinica.getModel()).getListaclinicas().get(k).getIdclinica();
+                int i = ((ClinicaTableModel) tbClinica.getModel()).getListaclinicas().get(k).getIdclinica();
 
-            Statement stmt = conn.createStatement();
-            String sql = "UPDATE clinica SET nome = " + nome + ",cnpj = " + cnpj + ",cidadeclinica = " + cidade + " WHERE idclinica = " + i + "";
-            stmt.executeUpdate(sql);
+                Statement stmt = conn.createStatement();
+                String sql = "UPDATE clinica SET nome = " + nome + ",cnpj = " + cnpj + ",cidadeclinica = " + cidade + " WHERE idclinica = " + i + "";
+                stmt.executeUpdate(sql);
 
-            stmt.close();
-            conn.close();
+                stmt.close();
+                conn.close();
 
-            JOptionPane.showMessageDialog(null, "Clinica Editada!");
+                JOptionPane.showMessageDialog(null, "Clinica Editada!");
 
-            String Mostrar = " ";
-            txtNomeAdmin.setText(Mostrar);
-            txtCnpjClinica.setText(Mostrar);
-            txtCidadeClinica.setText(Mostrar);
+                String Mostrar = " ";
+                txtNomeClinica.setText(Mostrar);
+                txtCnpjClinica.setText(Mostrar);
+                txtCidadeClinica.setText(Mostrar);
 
-            Clinicas = listarTbClinica();
-            ClinicaTableModel modelo = new ClinicaTableModel();
-            modelo.setListaClinicas(Clinicas);
-            tbClinica.setModel(modelo);
+                Clinicas = listarTbClinica();
+                ClinicaTableModel modelo = new ClinicaTableModel();
+                modelo.setListaClinicas(Clinicas);
+                tbClinica.setModel(modelo);
 
-            combClinicaMedico.removeAllItems();
+                combClinicaMedico.removeAllItems();
 
-            lclinica = listarClinicas();
+                lclinica = listarClinicas();
 
-            for (int i2 = 0; i2 < lclinica.size(); i2++) {
-                combClinicaMedico.addItem(lclinica.get(i2));
+                for (int i2 = 0; i2 < lclinica.size(); i2++) {
+                    combClinicaMedico.addItem(lclinica.get(i2));
 
-            }
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(CadastroMedico.class.getName()).log(Level.SEVERE, null, ex);
@@ -1161,13 +1156,13 @@ public class Cadastro extends javax.swing.JFrame {
             String cnpj = "'" + txtCnpjClinica.getText() + "'";
             String cidade = "'" + txtCidadeClinica.getText() + "'";
 
-            if( txtNomeClinica.getText().isEmpty() || txtCnpjClinica.getText().isEmpty() || txtCidadeClinica.getText().isEmpty()){
+            if (txtNomeClinica.getText().isEmpty() || txtCnpjClinica.getText().isEmpty() || txtCidadeClinica.getText().isEmpty()) {
 
                 JOptionPane.showMessageDialog(null, "Preencha Todos os Campos!!");
-            }else{
+            } else {
 
                 String sql = "INSERT INTO Clinica (nome, cnpj, cidadeclinica) VALUES ("
-                + "" + nome + "," + cnpj + "," + cidade + ")";
+                        + "" + nome + "," + cnpj + "," + cidade + ")";
                 System.out.println("sql: " + sql);
 
                 //atravez desse objeto usamos comandos sql
@@ -1225,9 +1220,9 @@ public class Cadastro extends javax.swing.JFrame {
             }
 
             int k = tbMedico.getSelectedRow();
-            if( k == -1){
+            if (k == -1) {
                 JOptionPane.showMessageDialog(null, "Selecione um Admin para deletar");
-            }else{
+            } else {
                 // System.out.println(k);
                 int i = ((MedicoTableModel) tbMedico.getModel()).getListamedicos().get(k).getIdmedico();
 
@@ -1273,30 +1268,30 @@ public class Cadastro extends javax.swing.JFrame {
             String dataNasc = "'" + sdf.format(aux) + "'";
 
             int k = tbMedico.getSelectedRow();
-            if( k == -1){
+            if (k == -1) {
                 JOptionPane.showMessageDialog(null, "Porfavor Complete os Campos e Selecione a Linha na Tabela a ser editada e em Seguida clicke no botao Editar");
-            }else{
-            // System.out.println(k);
-            int i = ((MedicoTableModel) tbMedico.getModel()).getListamedicos().get(k).getIdmedico();
+            } else {
+                // System.out.println(k);
+                int i = ((MedicoTableModel) tbMedico.getModel()).getListamedicos().get(k).getIdmedico();
 
-            Statement stmt = conn.createStatement();
-            String sql = "UPDATE medico SET nome = " + nome + ",crm = " + crm + ",cpf = " + cpf + ",datanascimento = " + dataNasc + "WHERE idmedico = " + i + "";
-            stmt.executeUpdate(sql);
+                Statement stmt = conn.createStatement();
+                String sql = "UPDATE medico SET nome = " + nome + ",crm = " + crm + ",cpf = " + cpf + ",datanascimento = " + dataNasc + "WHERE idmedico = " + i + "";
+                stmt.executeUpdate(sql);
 
-            stmt.close();
-            conn.close();
+                stmt.close();
+                conn.close();
 
-            JOptionPane.showMessageDialog(null, "Médico(a) Editado!");
+                JOptionPane.showMessageDialog(null, "Médico(a) Editado!");
 
-            String Mostrar = " ";
-            txtNomeMedico.setText(Mostrar);
-            txtCpfMedico.setText(Mostrar);
-            txtCrmMedico.setText(Mostrar);
+                String Mostrar = " ";
+                txtNomeMedico.setText(Mostrar);
+                txtCpfMedico.setText(Mostrar);
+                txtCrmMedico.setText(Mostrar);
 
-            medicos = listarTbMedico();
-            MedicoTableModel modelo = new MedicoTableModel();
-            modelo.setListamedicos(medicos);
-            tbMedico.setModel(modelo);
+                medicos = listarTbMedico();
+                MedicoTableModel modelo = new MedicoTableModel();
+                modelo.setListamedicos(medicos);
+                tbMedico.setModel(modelo);
             }
 
         } catch (SQLException ex) {
@@ -1331,16 +1326,16 @@ public class Cadastro extends javax.swing.JFrame {
             String cpf = "'" + txtCpfMedico.getText() + "'";
 
             String dataNasc = "'" + sdf.format(aux) + "'";
-            if( txtNomeMedico.getText().isEmpty() || txtCrmMedico.getText().isEmpty() || txtCpfMedico.getText().isEmpty()){
+            if (txtNomeMedico.getText().isEmpty() || txtCrmMedico.getText().isEmpty() || txtCpfMedico.getText().isEmpty()) {
 
                 JOptionPane.showMessageDialog(null, "Preencha Todos os Campos!!");
-            }else{
+            } else {
 
                 Statement stmt = conn.createStatement();
 
                 sql = "INSERT INTO Medico (nome,crm, cpf, datanascimento, idclinica, idadmin ) VALUES ("
-                + "" + nome + "," + crm + "," + cpf + "," + dataNasc + "," + ((Clinica) combClinicaMedico.getSelectedItem()).getIdclinica() + ","
-                + " " + ((Admin) combAdminMedico.getSelectedItem()).getIdadmin() + ")";
+                        + "" + nome + "," + crm + "," + cpf + "," + dataNasc + "," + ((Clinica) combClinicaMedico.getSelectedItem()).getIdclinica() + ","
+                        + " " + ((Admin) combAdminMedico.getSelectedItem()).getIdadmin() + ")";
                 System.out.println("sql: " + sql);
 
                 //atravez desse objeto usamos comandos sql
@@ -1354,7 +1349,7 @@ public class Cadastro extends javax.swing.JFrame {
                 stmt.close();
                 conn.close();
                 JOptionPane.showMessageDialog(null, "Médico(a) cadastrado!");
-                
+
                 txtNomeMedico.setText(Mostrar);
                 txtCpfMedico.setText(Mostrar);
                 txtCrmMedico.setText(Mostrar);
@@ -1368,8 +1363,7 @@ public class Cadastro extends javax.swing.JFrame {
 
                 //   alinharTbMedicos(tbMedico);
             }
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(CadastroMedico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1MedicoActionPerformed

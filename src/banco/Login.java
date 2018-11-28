@@ -21,35 +21,33 @@ import javax.swing.JOptionPane;
  * @author IFMS
  */
 public class Login extends javax.swing.JFrame {
-private Connection conn;
-PreparedStatement ps = null;
+
+    private Connection conn;
+    PreparedStatement ps = null;
     ResultSet rs = null;
 
-
-    
-   public void logar() {
+    public void logar() {
         String sql = "SELECT idadmin, login, senha, adm FROM admin WHERE login = ? AND senha = ?";
         try {
             ps = conn.prepareStatement(sql);
             ps.setString(1, txtLogin.getText());
             ps.setString(2, txtSenha.getText());
-            
+
             rs = ps.executeQuery();
             if (rs.next()) {
                 Integer idadmin = rs.getInt("idadmin");
                 Integer adm = rs.getInt("adm");
-                
-                
-                if(adm>0){
+
+                if (adm > 0) {
                     CadastroAdm init = new CadastroAdm();
-                init.setVisible(true); //torna visivel frame de cadastro    
-                setVisible(false);//tira a tela de login
-                dispose(); //fecha o form de login (quem chamou)
-                }else{
-                Cadastro init2 = new Cadastro();
-                init2.setVisible(true); //torna visivel frame de cadastro    
-                setVisible(false);//tira a tela de login
-                dispose(); //fecha o form de login (quem chamou)
+                    init.setVisible(true); //torna visivel frame de cadastro    
+                    setVisible(false);//tira a tela de login
+                    dispose(); //fecha o form de login (quem chamou)
+                } else {
+                    Cadastro init2 = new Cadastro();
+                    init2.setVisible(true); //torna visivel frame de cadastro    
+                    setVisible(false);//tira a tela de login
+                    dispose(); //fecha o form de login (quem chamou)
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário e/ou senha inválidos");
@@ -58,14 +56,13 @@ PreparedStatement ps = null;
             JOptionPane.showMessageDialog(null, "Erro");
         }
     }
-   
+
     public Login() {
         initComponents();
         setLocationRelativeTo(null); //centro da tela
         conn = Banco.conecta();
         setResizable(false);
-     
-        
+
     }
 
     /**
@@ -177,11 +174,11 @@ PreparedStatement ps = null;
     }//GEN-LAST:event_btnLogarActionPerformed
 
     private void txtLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginActionPerformed
-       logar();
+        logar();
     }//GEN-LAST:event_txtLoginActionPerformed
 
     private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
-       logar();
+        logar();
     }//GEN-LAST:event_txtSenhaActionPerformed
 
     /**
