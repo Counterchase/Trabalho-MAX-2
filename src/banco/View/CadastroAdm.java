@@ -48,7 +48,9 @@ public class CadastroAdm extends javax.swing.JFrame {
     private List<Admin> Admins;
     private List<Clinica> Clinicas;
     private List<Medico> medicos;
-    private List<Medico> Clientes;
+    private List<Cliente> clientes;
+    
+    private List<Medico> lmedico;
     private List<Clinica> lclinica;
     private List<Admin> ladmin;
     private List<Cliente> lcliente;
@@ -207,19 +209,19 @@ public class CadastroAdm extends javax.swing.JFrame {
 
         while (res.next()) {
 
-            Medico m = new Medico();;
-            m.setIdmedico(res.getInt("idmedico"));
-            m.setNome(res.getString("nome"));
-            m.setCpf(res.getString("cpf").toString());
-            m.setCrm(res.getString("crm"));
+            Medico a = new Medico();;
+            a.setIdmedico(res.getInt("idmedico"));
+            a.setNome(res.getString("nome"));
+            a.setCpf(res.getString("cpf").toString());
+            a.setCrm(res.getString("crm"));
 
             Calendar c = Calendar.getInstance();
             c.setTime(res.getDate("datanascimento"));
-            m.setDatanascimento(c);
+            a.setDatanascimento(c);
 
-            m.setIdclinica(res.getInt("idclinica"));
-            m.setIdadmin(res.getInt("idadmin"));
-            medicos.add(m);
+            a.setIdclinica(res.getInt("idclinica"));
+            a.setIdadmin(res.getInt("idadmin"));
+            medicos.add(a);
         }
         stmt.close();
         conn.close();
@@ -227,14 +229,14 @@ public class CadastroAdm extends javax.swing.JFrame {
 
     }
     
-    public List<Cliente> listarTbClientes() throws SQLException {
-        Clientes = new ArrayList<>();
+    public List<Cliente> listarTbCliente() throws SQLException {
+        clientes = new ArrayList<>();
         conn = Banco.conecta();
         if (conn == null || conn.isClosed()) {
             System.out.println("erro ao conectar ao banco de dados");
             System.exit(-1);
         }
-        String sql = "SELECT idcliente, nome, cpf, rg, datanascimento, idclinica, idadmin, idleito FROM Cliente";
+        String sql = "SELECT idcliente, nome, cpf, rg, datanascimento, idclinica, idadmin FROM Cliente";
         System.out.println("sql: " + sql);
 
         //atravez desse objeto usamos comandos sql
@@ -245,20 +247,21 @@ public class CadastroAdm extends javax.swing.JFrame {
 
         while (res.next()) {
 
-            Cliente m = new Medico();;
-            m.setIdcliente(res.getInt("idcliente"));
-            m.setNome(res.getString("nome"));
-            m.setCpf(res.getString("cpf").toString());
-            m.setRg(res.getString("rg"));
+            Cliente a = new Cliente();;
+            a.setIdcliente(res.getInt("idcliente"));
+            a.setNome(res.getString("nome"));
+            a.setCpf(res.getString("cpf").toString());
+            a.setRg(res.getString("rg"));
 
             Calendar c = Calendar.getInstance();
             c.setTime(res.getDate("datanascimento"));
-            m.setDatanascimento(c);
+            a.setDatanascimento(c);
 
-            m.setIdclinica(res.getInt("idclinica"));
-            m.setIdadmin(res.getInt("idadmin"));
-            m.setIdleito(res.getInt("idleito"));
-            clientes.add(m);
+            a.setIdclinica(res.getInt("idclinica"));
+            a.setIdmedico(res.getInt("idmedico"));
+            a.setIdleito(res.getInt("idleito"));
+            
+            clientes.add(a);
         }
         stmt.close();
         conn.close();
@@ -267,7 +270,7 @@ public class CadastroAdm extends javax.swing.JFrame {
     }
 
     /*==========================================================================================================================================*/
-*-*
+    
  /*LISTAR CLINICA E ADMIN COMBO BOX =============================================================================================================*/
     public List<Admin> listarAdmins() throws SQLException {
 
@@ -337,15 +340,53 @@ public class CadastroAdm extends javax.swing.JFrame {
         return Clinicas;
 
     }
+    
+     public List<Medico> listarMedicos() throws SQLException {
+
+        List<Medico> Medicos = new ArrayList<>();
+        conn = Banco.conecta();
+        if (conn == null || conn.isClosed()) {
+            System.out.println("erro ao conectar ao banco de dados");
+            System.exit(-1);
+        }
+
+        String sql = "SELECT idmedico, nome, cpf, crm, datanascimento, idclinica, idadmin FROM Medico";
+
+        System.out.println("sql: " + sql);
+        Statement stmt = conn.createStatement();
+
+        //retorna um conjunto de dados , sempre q for fazer insert usar o executeUpdate
+        ResultSet res = stmt.executeQuery(sql);
+        while (res.next()) {
+
+            Medico a = new Medico();;
+            a.setIdmedico(res.getInt("idmedico"));
+            a.setNome(res.getString("nome"));
+            a.setCpf(res.getString("cpf").toString());
+            a.setCrm(res.getString("crm"));
+
+            Calendar c = Calendar.getInstance();
+            c.setTime(res.getDate("datanascimento"));
+            a.setDatanascimento(c);
+
+            a.setIdclinica(res.getInt("idclinica"));
+            a.setIdadmin(res.getInt("idadmin"));
+            medicos.add(a);
+
+        }
+        return medicos;
+
+    }
 
     /*==========================================================================================================================*/
  /*INICIALIZANDO COMPONENTESS====================================================================================================================*/
     public CadastroAdm() {
         initComponents();
         setLocationRelativeTo(null);
-        medicos = new ArrayList<>();
+        lmedico = new ArrayList<>();
         lclinica = new ArrayList<>();
         ladmin = new ArrayList<>();
+        lcliente = new ArrayList<>();
 
         try {
             Admins = listarTbAdmin();
@@ -373,6 +414,12 @@ public class CadastroAdm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(CadastroAdm.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        try {
+            clientes = listarTbCliente();
+        } catch (SQLException ex) {
+            Logger.getLogger(CadastroAdm.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         AdminTableModel modeloAdmin = new AdminTableModel();
         modeloAdmin.setListaAdmins(Admins);
@@ -390,6 +437,12 @@ public class CadastroAdm extends javax.swing.JFrame {
         modeloMedico.setListamedicos(medicos);
 
         tbMedico.setModel(modeloMedico);
+        
+        //  alinharTbAdmins(tbAdmin);
+        ClienteTableModel modeloCliente = new ClienteTableModel();
+        modeloCliente.setListaClientes(clientes);
+
+        tbCliente.setModel(modeloCliente);
 
         for (int i = 0; i < lclinica.size(); i++) {
             combClinicaMedico.addItem(lclinica.get(i));
@@ -400,7 +453,12 @@ public class CadastroAdm extends javax.swing.JFrame {
             combAdminMedico.addItem(ladmin.get(i));
 
         }
+        
+        for (int i = 0; i < lmedico.size(); i++) {
+            combMedicoCliente.addItem(lmedico.get(i));
 
+        }
+        
         medicos = new ArrayList<>();
 
         conn = Banco.conecta();
@@ -449,13 +507,13 @@ public class CadastroAdm extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         txtDataNascimentoCliente = new org.jdesktop.swingx.JXDatePicker();
         jLabel23 = new javax.swing.JLabel();
-        combMedicoCliente = new javax.swing.JComboBox<>();
         jScrollPane4 = new javax.swing.JScrollPane();
         tbCliente = new javax.swing.JTable();
         jLabel24 = new javax.swing.JLabel();
         btnExcluirCliente = new javax.swing.JButton();
         txtNomeCliente = new javax.swing.JTextField();
         txtRgCliente = new javax.swing.JFormattedTextField();
+        combMedicoCliente = new javax.swing.JComboBox<>();
         clinica = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -600,8 +658,6 @@ public class CadastroAdm extends javax.swing.JFrame {
 
         jLabel23.setText("Data de Nascimento:");
 
-        combMedicoCliente.setToolTipText("");
-
         tbCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -636,6 +692,12 @@ public class CadastroAdm extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
+        combMedicoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combMedicoClienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ClienteLayout = new javax.swing.GroupLayout(Cliente);
         Cliente.setLayout(ClienteLayout);
         ClienteLayout.setHorizontalGroup(
@@ -654,30 +716,31 @@ public class CadastroAdm extends javax.swing.JFrame {
                         .addComponent(txtNomeCliente))
                     .addGroup(ClienteLayout.createSequentialGroup()
                         .addGroup(ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel22)
-                            .addGroup(ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(ClienteLayout.createSequentialGroup()
-                                    .addGroup(ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel21)
-                                        .addComponent(jLabel19))
-                                    .addGap(76, 76, 76)
-                                    .addComponent(combMedicoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(combClinicaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnCadastrarCliente)
-                                    .addGroup(ClienteLayout.createSequentialGroup()
-                                        .addComponent(jLabel23)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtDataNascimentoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(ClienteLayout.createSequentialGroup()
-                        .addGroup(ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel18)
                             .addComponent(jLabel24))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtRgCliente)
-                            .addComponent(txtCpfCliente))))
+                            .addComponent(txtCpfCliente)))
+                    .addGroup(ClienteLayout.createSequentialGroup()
+                        .addGroup(ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel22)
+                            .addGroup(ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnCadastrarCliente)
+                                    .addGroup(ClienteLayout.createSequentialGroup()
+                                        .addComponent(jLabel23)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtDataNascimentoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(ClienteLayout.createSequentialGroup()
+                                    .addGroup(ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel21)
+                                        .addComponent(jLabel19))
+                                    .addGap(76, 76, 76)
+                                    .addGroup(ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(combClinicaCliente, 0, 250, Short.MAX_VALUE)
+                                        .addComponent(combMedicoCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         ClienteLayout.setVerticalGroup(
@@ -707,8 +770,8 @@ public class CadastroAdm extends javax.swing.JFrame {
                     .addComponent(combClinicaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(combMedicoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21))
+                    .addComponent(jLabel21)
+                    .addComponent(combMedicoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExcluirCliente)
@@ -1786,10 +1849,10 @@ public class CadastroAdm extends javax.swing.JFrame {
                 txtCpfCliente.setText(Mostrar);
                 txtRgCliente.setText(Mostrar);
 
-               cliente = listarTbCliente();
+               clientes = listarTbCliente();
 
                ClienteTableModel modelo = new ClienteTableModel();
-                modelo.setListacliente(cliente);
+                modelo.setListaClientes(clientes);
 
                 tbCliente.setModel(modelo);
 
@@ -1822,7 +1885,7 @@ public class CadastroAdm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Porfavor Complete os Campos e Selecione a Linha na Tabela a ser editada e em Seguida clicke no botao Editar");
             } else {
                 // System.out.println(k);
-                int i = ((ClienteTableModel) tbCliente.getModel()).getListacliente().get(k).getIdcliente();
+                int i = ((ClienteTableModel) tbCliente.getModel()).getListaClientes().get(k).getIdcliente();
 
                 Statement stmt = conn.createStatement();
                 String sql = "UPDATE cliente SET nome = " + nome + ",rg = " + rg + ",cpf = " + cpf + ",datanascimento = " + dataNasc + "WHERE idcliente = " + i + "";
@@ -1838,9 +1901,9 @@ public class CadastroAdm extends javax.swing.JFrame {
                 txtCpfCliente.setText(Mostrar);
                 txtRgCliente.setText(Mostrar);
 
-                cliente = listarTbCliente();
+                clientes = listarTbCliente();
                 ClienteTableModel modelo = new ClienteTableModel();
-                modelo.setListacliente(cliente);
+                modelo.setListaClientes(clientes);
                 tbCliente.setModel(modelo);
             }
         } catch (SQLException ex) {
@@ -1876,7 +1939,7 @@ public class CadastroAdm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Selecione um Cliente para deletar");
             } else {
                 // System.out.println(k);
-                int i = ((ClienteTableModel) tbCliente.getModel()).getListacliente().get(k).getIdcliente();
+                int i = ((ClienteTableModel) tbCliente.getModel()).getListaClientes().get(k).getIdcliente();
 
                 Statement stmt = conn.createStatement();
                 String sql = "Delete from cliente where idcliente = " + i + " ";
@@ -1892,9 +1955,9 @@ public class CadastroAdm extends javax.swing.JFrame {
                 txtCpfCliente.setText(Mostrar);
                 txtRgCliente.setText(Mostrar);
 
-                cliente = listarTbCliente();
+                clientes = listarTbCliente();
                 ClienteTableModel modelo = new ClienteTableModel();
-                modelo.setListacliente(cliente);
+                modelo.setListaClientes(clientes);
                 tbCliente.setModel(modelo);
             }
         } catch (SQLException ex) {
@@ -1909,6 +1972,10 @@ public class CadastroAdm extends javax.swing.JFrame {
     private void combAdminMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combAdminMedicoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_combAdminMedicoActionPerformed
+
+    private void combMedicoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combMedicoClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combMedicoClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1969,7 +2036,7 @@ public class CadastroAdm extends javax.swing.JFrame {
     private javax.swing.JComboBox<Admin> combAdminMedico;
     private javax.swing.JComboBox<Clinica> combClinicaCliente;
     private javax.swing.JComboBox<Clinica> combClinicaMedico;
-    private javax.swing.JComboBox<Admin> combMedicoCliente;
+    private javax.swing.JComboBox<Medico> combMedicoCliente;
     private javax.swing.JButton jButton1Medico;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
