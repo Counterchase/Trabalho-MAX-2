@@ -15,6 +15,15 @@ public class Clinica {
     private String nome;
     private String cnpj;
     private String cidadeclinica;
+    private Integer leito;
+
+    public Integer getLeito() {
+        return leito;
+    }
+
+    public void setLeito(Integer leito) {
+        this.leito = leito;
+    }
 
     public Integer getIdclinica() {
         return idclinica;

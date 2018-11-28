@@ -3,8 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package banco;
+package banco.View;
 
+import banco.AdminTableModel;
+import banco.Banco;
+import banco.CadastroClinica;
+import banco.CadastroMedico;
+import banco.ClinicaTableModel;
+import banco.MedicoTableModel;
 import banco.Model.Admin;
 import banco.Model.Medico;
 import banco.Model.Clinica;
