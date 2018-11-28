@@ -1101,6 +1101,9 @@ public class Cadastro extends javax.swing.JFrame {
             String cidade = "'" + txtCidadeClinica.getText() + "'";
 
             int k = tbClinica.getSelectedRow();
+            if( k == -1){
+                JOptionPane.showMessageDialog(null, "Porfavor Complete os Campos e Selecione a Linha na Tabela a ser editada e em Seguida clicke no botao Editar");
+            }else{
             // System.out.println(k);
 
             int i = ((ClinicaTableModel) tbClinica.getModel()).getListaclinicas().get(k).getIdclinica();
@@ -1132,7 +1135,7 @@ public class Cadastro extends javax.swing.JFrame {
                 combClinicaMedico.addItem(lclinica.get(i2));
 
             }
-
+            }
         } catch (SQLException ex) {
             Logger.getLogger(CadastroMedico.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1270,6 +1273,9 @@ public class Cadastro extends javax.swing.JFrame {
             String dataNasc = "'" + sdf.format(aux) + "'";
 
             int k = tbMedico.getSelectedRow();
+            if( k == -1){
+                JOptionPane.showMessageDialog(null, "Porfavor Complete os Campos e Selecione a Linha na Tabela a ser editada e em Seguida clicke no botao Editar");
+            }else{
             // System.out.println(k);
             int i = ((MedicoTableModel) tbMedico.getModel()).getListamedicos().get(k).getIdmedico();
 
@@ -1291,6 +1297,7 @@ public class Cadastro extends javax.swing.JFrame {
             MedicoTableModel modelo = new MedicoTableModel();
             modelo.setListamedicos(medicos);
             tbMedico.setModel(modelo);
+            }
 
         } catch (SQLException ex) {
             Logger.getLogger(CadastroMedico.class.getName()).log(Level.SEVERE, null, ex);
@@ -1307,6 +1314,7 @@ public class Cadastro extends javax.swing.JFrame {
 
     private void jButton1MedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1MedicoActionPerformed
         conn = Banco.conecta();
+        String Mostrar = null;
         String sql = "";
 
         try {
@@ -1346,7 +1354,7 @@ public class Cadastro extends javax.swing.JFrame {
                 stmt.close();
                 conn.close();
                 JOptionPane.showMessageDialog(null, "Médico(a) cadastrado!");
-                String Mostrar = " ";
+                
                 txtNomeMedico.setText(Mostrar);
                 txtCpfMedico.setText(Mostrar);
                 txtCrmMedico.setText(Mostrar);
